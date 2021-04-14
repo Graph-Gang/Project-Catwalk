@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 
-const App = () => <></>;
+const App = () => <div>Hello</div>;
 
 
 ReactDOM.render(<App />, document.getElementById('app'));
