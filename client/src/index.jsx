@@ -7,17 +7,20 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      product: []
+      products: [],
+      product: {},
+      product_id: 17067
     }
     this.fetchAll = this.fetchAll.bind(this);
+    this.fetchOne = this.fetchOne.bind(this);
   }
 
   fetchAll() {
     axios.get('/products')
       .then((results) => {
-        console.log('Success getting all products from API', results.data);
+        console.log('Success getting all products from API');
         this.setState({
-          product: results.data
+          products: results.data
         });
       })
       .catch((err) => {
@@ -25,14 +28,28 @@ class App extends React.Component {
       })
   }
 
+  fetchOne() {
+    axios.get('/products/' +  this.state.product_id)
+      .then((results) => {
+        console.log('Success getting one product from API');
+        this.setState({
+          product: results.data
+        })
+      })
+      .catch((err) => {
+        console.log('Error getting one product from API');
+      })
+  }
+
   componentDidMount() {
     this.fetchAll();
+    this.fetchOne();
   }
 
   render() {
     return(
       <div>
-        <Main products={this.state.product} />
+        <Main products={this.state.products} />
       </div>
     )
   }
