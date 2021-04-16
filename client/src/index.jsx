@@ -9,10 +9,12 @@ class App extends React.Component {
     this.state = {
       products: [],
       product: {},
-      product_id: 17067
+      product_id: 17067,
+      product_styles: []
     }
     this.fetchAll = this.fetchAll.bind(this);
     this.fetchOne = this.fetchOne.bind(this);
+    this.fetchProductStyle = this.fetchProductStyle.bind(this);
   }
 
   fetchAll() {
@@ -41,9 +43,23 @@ class App extends React.Component {
       })
   }
 
+  fetchProductStyle(id) {
+    axios.get(`/products/${id}/styles`)
+      .then((results) => {
+        console.log('Success getting one product style from API');
+        this.setState({
+          product_styles: results.data.results
+        })
+      })
+      .catch((err) => {
+        console.log('Error getting one product style from API');
+      })
+  }
+
   componentDidMount() {
     // this.fetchAll();
     this.fetchOne(this.state.product_id);
+    this.fetchProductStyle(this.state.product_id);
   }
 
   render() {

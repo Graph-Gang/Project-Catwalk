@@ -27,8 +27,30 @@
   border-left: 2px solid grey;
 }
 
-/* .pdo_item2 {
-  height: 100%;
-  border-left: 2px solid grey;
-} */
+.single-star-outline {
+  height: 21px;
+  width: 16px;
+}
 
+.single-star-fill {
+  position: relative;
+  display: inline-block;
+  height: 21px;
+  background-color: #333333;
+}
+
+.single-star-container {
+  height: 21px;
+  width: 16px;
+  display: inline-block;
+}
+
+.stars {
+  display: inline-block;
+}
+
+.readReviews {
+  vertical-align: 30%;
+  display: inline-block;
+  margin-left: 1vw;
+}
