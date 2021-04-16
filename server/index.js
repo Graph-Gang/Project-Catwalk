@@ -17,12 +17,31 @@ app.get('/products', function (req, res) {
 
   axios.get(url, options)
     .then((results) => {
-      console.log('SUCCESS results --->', results.data);
-      res.status(201);
+      res.status(200);
       res.send(results.data);
     })
     .catch((err) => {
-      console.log(err);
+      res.status(404);
+      res.send(err);
+    })
+})
+
+app.get('/products/:product_id', function (req, res) {
+  var id = req.params.product_id;
+  let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products/${id}`
+  let options = {
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': config.TOKEN
+    }
+  }
+
+  axios.get(url, options)
+    .then((results) => {
+      res.status(200);
+      res.send(results.data);
+    })
+    .catch((err) => {
       res.status(404);
       res.send(err);
     })

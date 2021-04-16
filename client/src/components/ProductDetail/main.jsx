@@ -1,8 +1,8 @@
 import React from 'react'
-import ProductInfo from './components/productInfo.jsx';
-import StyleSelector from './components/styleSelector.jsx';
-import AddCart from './components/addCart.jsx';
-import ImgGallery from './components/imgGallery.jsx';
+import ProductInfo from './components/ProductInfo/productInfo.jsx';
+import StyleSelector from './components/StyleSelector/styleSelector.jsx';
+import AddCart from './components/AddCart/addCart.jsx';
+import ImgGallery from './components/ImgGallery/imgGallery.jsx';
 
 const Main = (props) => (
   <div>
