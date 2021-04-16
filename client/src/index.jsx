@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Main from './components/ProductDetail/main.jsx';
+import ProductDetail from './components/ProductDetail/main.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -28,8 +28,8 @@ class App extends React.Component {
       })
   }
 
-  fetchOne() {
-    axios.get('/products/' +  this.state.product_id)
+  fetchOne(id) {
+    axios.get('/products/' + id)
       .then((results) => {
         console.log('Success getting one product from API');
         this.setState({
@@ -42,14 +42,14 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchAll();
-    this.fetchOne();
+    // this.fetchAll();
+    this.fetchOne(this.state.product_id);
   }
 
   render() {
     return(
       <div>
-        <Main products={this.state.products} />
+        <ProductDetail product={this.state.product}/>
       </div>
     )
   }
