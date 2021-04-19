@@ -18,10 +18,10 @@ const ProductInfo = (props) => (
       {props.product.name}
     </div>
     <br></br>
-    <div className='product_price'>
+    {/* <div className='product_price'>
       ${props.product.default_price}
     </div>
-    <br></br>
+    <br></br> */}
   </div>
 )
 

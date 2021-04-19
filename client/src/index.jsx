@@ -65,7 +65,7 @@ class App extends React.Component {
   render() {
     return(
       <div>
-        <ProductDetail product={this.state.product}/>
+        <ProductDetail product={this.state.product} product_styles={this.state.product_styles}/>
       </div>
     )
   }

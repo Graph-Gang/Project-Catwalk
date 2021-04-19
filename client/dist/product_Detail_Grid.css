@@ -2,6 +2,7 @@
   max-width: 100%;
   display: grid;
   grid-template-columns: 10% 60% 30%;
+  row-gap: 5vw;
 }
 
 .product_category {
@@ -58,4 +59,22 @@
 .social_media {
   position: relative;
   left: 1vw;
+}
+
+.style_grid {
+  width: 80%;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  row-gap: 2vw;
+}
+
+.roundedThumbnail {
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  overflow: hidden;
+  border-radius: 50%;
+  border: 0.2vw solid black;
+  width: 5vw;
+  height: 5vw;
 }

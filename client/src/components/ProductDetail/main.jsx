@@ -19,7 +19,7 @@ const ProductDetail = (props) => (
       </div>
       <div className='pd_item3'>
         <ProductInfo product={props.product}/>
-        <StyleSelector product={props.product}/>
+        <StyleSelector product_styles={props.product_styles}/>
         <AddCart product={props.product}/>
       </div>
       <div className='pd_item4'>
