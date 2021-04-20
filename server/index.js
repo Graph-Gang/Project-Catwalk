@@ -75,6 +75,9 @@ app.get('/reviews/', function (req, res) {
     headers: {
       'User-Agent': 'request',
       'Authorization': config.TOKEN
+    },
+    params: {
+      product_id: id
     }
   }
 
@@ -85,7 +88,7 @@ app.get('/reviews/', function (req, res) {
       res.send(results.data);
     })
     .catch((err) => {
-      // console.log('reviews err --->', err);
+      console.log('reviews err --->', err);
       res.status(404);
       res.send(err);
     })
