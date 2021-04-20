@@ -2,6 +2,7 @@
   max-width: 100%;
   display: grid;
   grid-template-columns: 10% 60% 30%;
+  row-gap: 5vw;
 }
 
 .product_category {
@@ -24,7 +25,7 @@
 
 .pd_item6 {
   height: 100%;
-  border-left: 2px solid grey;
+  border-left: 0.20vw solid grey;
 }
 
 .single-star-outline {
@@ -53,4 +54,40 @@
   vertical-align: 30%;
   display: inline-block;
   margin-left: 1vw;
+}
+
+.social_media {
+  position: relative;
+  left: 1vw;
+}
+
+.style_grid {
+  width: 80%;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  row-gap: 2vw;
+}
+
+.roundedThumbnail {
+  background-repeat: no-repeat;
+  object-fit: cover;
+
+  overflow: hidden;
+  border-radius: 50%;
+  border: 0.2vw solid black;
+  width: 5vw;
+  height: 5vw;
+}
+
+.checkMark {
+  background-repeat: no-repeat;
+  object-fit: cover;
+
+  overflow: hidden;
+  border-radius: 50%;
+  width: 1.5vw;
+  height: 1.5vw;
+  position: relative;
+  top: 1.75vw;
+  left: 3.75vw;
 }

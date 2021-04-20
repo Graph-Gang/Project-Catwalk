@@ -1,19 +1,30 @@
-import React from 'react';
-import Renderer from 'react-test-renderer';
-
-// const App = require('../client/src/index.jsx');
 const axios = require('axios');
 
-it('returns 200 status code', () => {
-  axios.get('/products')
-    .then((results) => {
-      expect(results.status).toEqual(200);
-    })
-    .catch((error) => {
-      console.log('Failed Test');
-    })
-  })
+describe('Server Tests', () => {
+  it('returns 200 status code for GET request to /products', () => {
+    axios.get('/products')
+      .then((results) => {
+        expect(results.status).toEqual(200);
+      })
+      .catch((error) => {
+      })
+  });
 
-  // console.log('200');
-  // const getRequest = await App.fetchAll();
-  // expect(getRequest.status).toEqual('200');
+  it('returns 200 status code for GET request to /products/:product_id', () => {
+    axios.get('/products/17067')
+      .then((results) => {
+        expect(results.status).toEqual(200);
+      })
+      .catch((error) => {
+      })
+  });
+
+  it('returns 200 status code for GET request to /products/:product_id/styles', () => {
+    axios.get('/products/17067/styles')
+      .then((results) => {
+        expect(results.status).toEqual(200);
+      })
+      .catch((error) => {
+      })
+  });
+})
