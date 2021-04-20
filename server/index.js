@@ -96,7 +96,7 @@ app.get('/qa/questions/:product_id', (req, res) => {
     })
 })
 
-app.get('/reviews/', function (req, res) {
+app.get('/reviews/:product_id', function (req, res) {
   let id = req.params.product_id;
   let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`
   let options = {
@@ -111,7 +111,7 @@ app.get('/reviews/', function (req, res) {
 
   axios.get(url, options)
     .then((results) => {
-      console.log('reviews results --->', results);
+      console.log('reviews results --->', results.data);
       res.status(200);
       res.send(results.data);
     })

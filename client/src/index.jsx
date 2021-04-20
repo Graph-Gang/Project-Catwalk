@@ -77,12 +77,13 @@ class App extends React.Component {
   }
 
 
+
   fetchReviews(id) {
-    axios.get('/reviews/')
+    axios.get('/reviews/' + id)
       .then((results) => {
         console.log('Success getting all reviews from API');
         this.setState({
-          reviews: results.data
+          reviews: results.data.results
         });
       })
       .catch((err) => {
