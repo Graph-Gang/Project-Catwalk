@@ -17,11 +17,6 @@ const ProductInfo = (props) => (
     <div className='product_name'>
       {props.product.name}
     </div>
-    <br></br>
-    <div className='product_price'>
-      ${props.product.default_price}
-    </div>
-    <br></br>
   </div>
 )
 
