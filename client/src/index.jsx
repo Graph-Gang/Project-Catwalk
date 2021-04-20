@@ -73,6 +73,8 @@ class App extends React.Component {
       })
       .catch((err) => {
         console.log(err)
+      })
+  }
 
 
   fetchReviews(id) {
@@ -100,7 +102,7 @@ class App extends React.Component {
     return(
       <div>
         <div>
-          <ProductDetail product={this.state.product}/>
+          <ProductDetail product={this.state.product} product_styles={this.state.product_styles}/>
         </div>
         <hr></hr>
         <div>
@@ -108,7 +110,7 @@ class App extends React.Component {
         </div>
         <hr></hr>
         <div>
-        <RatingReview reviews={this.state.reviews}/>
+          <RatingReview reviews={this.state.reviews}/>
         </div>
       </div>
     )
