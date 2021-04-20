@@ -11,8 +11,9 @@ const QuestionsAnswers = (props) => {
 
   return (
     <div>
+      <h4>Questions & Answers </h4>
       <Search />
-      <QuestionList />
+      <QuestionList questions={props.questions}/>
       <AddAnswer />
       <AddQuestion />
     </div>

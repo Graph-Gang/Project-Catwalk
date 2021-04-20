@@ -4,10 +4,21 @@ import Question from './question.jsx'
 
 const QuestionList = (props) => {
 
+  // generate a list of the questions
+  let questions = [];
+  if(props.questions.results !== undefined) {
+    props.questions.results.forEach((q) => {
+      questions.push(<Question key={q.question_id} q={q} /> )
+    })
+  }
+
+  //on load, return up to 4 questions
+
   return (
+
     <div>
       List of Questions
-      <Question />
+      {questions.slice(0, 4)}
     </div>
   )
 }

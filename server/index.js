@@ -88,7 +88,6 @@ app.get('/qa/questions/:product_id', (req, res) => {
   axios.get(url, options)
     .then((results) => {
       res.status(200);
-      console.log(results.data);
       res.send(results.data);
   })
   .catch((err) => {
