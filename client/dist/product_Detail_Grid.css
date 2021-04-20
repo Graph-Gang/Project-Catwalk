@@ -24,7 +24,7 @@
 
 .pd_item6 {
   height: 100%;
-  border-left: 2px solid grey;
+  border-left: 0.20vw solid grey;
 }
 
 .single-star-outline {
@@ -53,4 +53,9 @@
   vertical-align: 30%;
   display: inline-block;
   margin-left: 1vw;
+}
+
+.social_media {
+  position: relative;
+  left: 1vw;
 }
