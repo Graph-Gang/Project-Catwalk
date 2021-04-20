@@ -70,7 +70,7 @@
 
 .roundedThumbnail {
   background-repeat: no-repeat;
-  background-size: cover;
+  object-fit: cover;
 
   overflow: hidden;
   border-radius: 50%;
