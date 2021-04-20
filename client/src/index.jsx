@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import ProductDetail from './components/ProductDetail/main.jsx';
+import QuestionsAnswers from './components/QuestionsAnswers/main.jsx';
 import RatingReview from './components/RatingReview/main.jsx';
 
 class App extends React.Component {
@@ -12,11 +13,14 @@ class App extends React.Component {
       product: {},
       product_id: 17067,
       product_styles: [],
+      questions: {},
       reviews: []
     }
+
     this.fetchAll = this.fetchAll.bind(this);
     this.fetchOne = this.fetchOne.bind(this);
     this.fetchProductStyle = this.fetchProductStyle.bind(this);
+    this.fetchQuestions = this.fetchQuestions.bind(this);
     this.fetchReviews = this.fetchReviews.bind(this);
   }
 
@@ -59,6 +63,18 @@ class App extends React.Component {
       })
   }
 
+  //get questions for a specific product
+  fetchQuestions(id) {
+    axios.get(`/qa/questions/${id}`)
+      .then((results) => {
+        this.setState({
+          questions: results.data
+        })
+      })
+      .catch((err) => {
+        console.log(err)
+
+
   fetchReviews(id) {
     axios.get('/reviews/')
       .then((results) => {
@@ -76,14 +92,24 @@ class App extends React.Component {
     this.fetchAll();
     this.fetchOne(this.state.product_id);
     this.fetchProductStyle(this.state.product_id);
+    this.fetchQuestions(this.state.product_id);
     this.fetchReviews(this.state.product_id);
   }
 
   render() {
     return(
       <div>
-        <ProductDetail product={this.state.product}/>
+        <div>
+          <ProductDetail product={this.state.product}/>
+        </div>
+        <hr></hr>
+        <div>
+          <QuestionsAnswers products={this.state.products}/>
+        </div>
+        <hr></hr>
+        <div>
         <RatingReview reviews={this.state.reviews}/>
+        </div>
       </div>
     )
   }
