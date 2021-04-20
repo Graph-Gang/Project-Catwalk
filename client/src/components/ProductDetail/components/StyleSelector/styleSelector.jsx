@@ -53,7 +53,10 @@ class StyleSelector extends React.Component {
         </h3>
         <div className='style_grid'>
           {this.props.product_styles.map((style, i) =>
-            <img key={i} src={style.photos[0].thumbnail_url} alt='Style' className='roundedThumbnail' onClick={this.handleClick} title={style.name}/>
+            <div key={i}>
+              <img src="https://www.seekpng.com/png/detail/445-4453053_form-checkmark-password-icon-png-green.png" style={{visibility: style.name === this.state.selected.name ? 'visible' : 'hidden'}} className='checkMark'/>
+              <img src={style.photos[0].thumbnail_url} alt='Style' className='roundedThumbnail' onClick={this.handleClick} title={style.name}/>
+            </div>
           )}
         </div>
       </div>

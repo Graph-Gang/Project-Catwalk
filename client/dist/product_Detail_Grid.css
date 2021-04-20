@@ -78,3 +78,16 @@
   width: 5vw;
   height: 5vw;
 }
+
+.checkMark {
+  background-repeat: no-repeat;
+  object-fit: cover;
+
+  overflow: hidden;
+  border-radius: 50%;
+  width: 1.5vw;
+  height: 1.5vw;
+  position: relative;
+  top: 1.75vw;
+  left: 3.75vw;
+}
