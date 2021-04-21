@@ -44,7 +44,6 @@ app.get('/products/:product_id', function (req, res) {
     })
     .catch((err) => {
       res.status(404);
-      console.log(err);
       res.send(err);
     })
 })
@@ -111,7 +110,7 @@ app.get('/reviews/:product_id', function (req, res) {
 
   axios.get(url, options)
     .then((results) => {
-      console.log('reviews results --->', results.data);
+      // console.log('reviews results --->', results.data);
       res.status(200);
       res.send(results.data);
     })

@@ -74,12 +74,7 @@ class App extends React.Component {
       .catch((err) => {
         console.log(err)
       })
-<<<<<<< HEAD
     }
-=======
-  }
-
->>>>>>> master
 
 
   fetchReviews(id) {
@@ -100,7 +95,7 @@ class App extends React.Component {
     this.fetchOne(this.state.product_id);
     this.fetchProductStyle(this.state.product_id);
     this.fetchQuestions(this.state.product_id);
-    //this.fetchReviews(this.state.product_id);
+    this.fetchReviews(this.state.product_id);
   }
 
   render() {
