@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import ProductDetail from './components/ProductDetail/main.jsx';
-import QuestionsAnswers from './components/QuestionsAnswers/main.jsx';
+import QuestionsAnswers from './components/QuestionsAnswers/QuestionsAnswers.jsx';
 import RatingReview from './components/RatingReview/main.jsx';
 
 class App extends React.Component {
@@ -13,7 +13,7 @@ class App extends React.Component {
       product: {},
       product_id: 17067,
       product_styles: [],
-      questions: {},
+      questions: '',
       reviews: []
     }
 
@@ -74,8 +74,7 @@ class App extends React.Component {
       .catch((err) => {
         console.log(err)
       })
-  }
-
+    }
 
 
   fetchReviews(id) {
@@ -107,7 +106,7 @@ class App extends React.Component {
         </div>
         <hr></hr>
         <div>
-          <QuestionsAnswers products={this.state.products}/>
+          <QuestionsAnswers products={this.state.products} questions={this.state.questions}/>
         </div>
         <hr></hr>
         <div>

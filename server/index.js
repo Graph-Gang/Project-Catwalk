@@ -87,7 +87,6 @@ app.get('/qa/questions/:product_id', (req, res) => {
   axios.get(url, options)
     .then((results) => {
       res.status(200);
-      console.log(results.data);
       res.send(results.data);
     })
     .catch((err) => {
@@ -111,12 +110,12 @@ app.get('/reviews/:product_id', function (req, res) {
 
   axios.get(url, options)
     .then((results) => {
-      console.log('reviews results --->', results.data);
+      // console.log('reviews results --->', results.data);
       res.status(200);
       res.send(results.data);
     })
     .catch((err) => {
-      console.log('reviews err --->', err);
+      // console.log('reviews err --->', err);
       res.status(404);
       res.send(err);
     })
