@@ -3,7 +3,7 @@ import React from 'react';
 // /Users/tomshibley/Project-Catwalk/client/src/components/ProductDetail/components/ProductInfo/components/starRating.jsx
 const Review = (props) => (
   <li>
-    <props.StarRating rating={props.rating}/>
+    <props.StarRating rating={props.review.rating}/>
     <div>{props.review.reviewer_name}</div>
     <h2>{props.review.summary}</h2>
     <div>{props.review.body}</div>

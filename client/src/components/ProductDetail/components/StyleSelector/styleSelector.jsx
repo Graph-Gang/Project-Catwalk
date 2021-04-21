@@ -1,4 +1,5 @@
 import React from 'react';
+import AddCart from '../AddCart/addCart.jsx';
 
 class StyleSelector extends React.Component {
   constructor(props) {
@@ -58,6 +59,9 @@ class StyleSelector extends React.Component {
               <img src={style.photos[0].thumbnail_url} alt='Style' className='roundedThumbnail' onClick={this.handleClick} title={style.name}/>
             </div>
           )}
+        </div>
+        <div>
+          <AddCart selected={this.state.selected}/>
         </div>
       </div>
     )

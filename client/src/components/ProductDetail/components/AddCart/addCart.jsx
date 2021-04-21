@@ -1,7 +1,9 @@
 import React from 'react';
 
 const AddCart= (props) => (
-  <div></div>
+  <div>
+
+  </div>
 )
 
 export default AddCart;
