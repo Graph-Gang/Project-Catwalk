@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import Enzyme, { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+
 import ProductDetail from '../client/src/components/ProductDetail/main.jsx';
 import ProductInfo from '../client/src/components/ProductDetail/components/ProductInfo/productInfo.jsx';
 import Description from '../client/src/components/ProductDetail/components/ProductInfo/components/description.jsx';
@@ -23,10 +24,6 @@ describe('Product Detail Tests', () => {
     };
     const wrapper = shallow(<ProductDetail product={props.product} product_styles={props.product_styles}/>);
     expect(wrapper.find(ProductInfo)).toHaveLength(1);
-    // expect(wrapper.find(Description)).toHaveLength(1);
-    // expect(wrapper.find(Features)).toHaveLength(1);
-    // expect(wrapper.find(Share)).toHaveLength(1);
-    // expect(wrapper.find(StyleSelector)).toHaveLength(1);
   })
 
   it('renders Description Component', () => {
