@@ -14,13 +14,9 @@ class App extends React.Component {
       product_id: 17067,
       product_styles: [],
       questions: '',
-<<<<<<< HEAD
       markedHelpful: [],
-      reviews: []
-=======
       reviews: [],
       ratings: {}
->>>>>>> master
     }
 
     this.fetchAll = this.fetchAll.bind(this);
@@ -28,12 +24,9 @@ class App extends React.Component {
     this.fetchProductStyle = this.fetchProductStyle.bind(this);
     this.fetchQuestions = this.fetchQuestions.bind(this);
     this.fetchReviews = this.fetchReviews.bind(this);
-<<<<<<< HEAD
     this.incrementQHelpfulness = this.incrementQHelpfulness.bind(this);
     this.incrementAHelpfulness = this.incrementAHelpfulness.bind(this);
-=======
     this.fetchRatings = this.fetchRatings.bind(this);
->>>>>>> master
   }
 
   fetchAll() {
