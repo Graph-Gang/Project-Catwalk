@@ -65,7 +65,6 @@
   width: 80%;
   display: grid;
   grid-template-columns: 25% 25% 25% 25%;
-  row-gap: 2vw;
 }
 
 .roundedThumbnail {
@@ -90,4 +89,33 @@
   position: relative;
   top: 1.75vw;
   left: 3.75vw;
+}
+
+.cart_form {
+  margin-top: 2.5vw;
+}
+
+.size_selection, .qty_selection, .addtocart_button {
+  height: 3.5vw;
+  font-weight: bold;
+  padding-left: 1vw;
+  border: 0.2vw solid black;
+}
+
+.size_selection {
+  margin-right: 5%;
+  display: inline-block;
+  width: 60%;
+}
+
+.qty_selection {
+  display: inline-block;
+  width: 35%;
+}
+
+.addtocart_button {
+  margin-top: 5%;
+  display: block;
+  width: 100%;
+  background-color: white;
 }
