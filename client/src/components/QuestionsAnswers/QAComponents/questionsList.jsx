@@ -7,7 +7,7 @@ const QuestionList = (props) => {
   // generate a list of the questions
   let questions = [];
   if(props.questions.results !== undefined) {
-    props.questions.results.forEach((q) => {
+    props.questions.results.forEach((q, index) => {
       questions.push(<Question key={q.question_id} q={q} /> )
     })
   }

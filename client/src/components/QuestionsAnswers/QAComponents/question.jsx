@@ -6,7 +6,7 @@ const Question = (props) => {
 
   return (
     <div>
-      <p>Q: {props.q.question_body}</p>
+      <div>Q: {props.q.question_body} <span>Helpful? Yes | Add Answer</span></div>
       <AnswerList q={props.q}/>
     </div>
   )
