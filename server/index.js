@@ -121,6 +121,32 @@ app.get('/reviews/:product_id', function (req, res) {
     })
 })
 
+app.get('/reviews/meta/:product_id', function (req, res) {
+  let id = req.params.product_id;
+  let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta/`
+  let options = {
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': config.TOKEN
+    },
+    params: {
+      product_id: id
+    }
+  }
+
+  axios.get(url, options)
+    .then((results) => {
+      console.log('ratings results --->', results.data);
+      res.status(200);
+      res.send(results.data);
+    })
+    .catch((err) => {
+      console.log('ratings err --->', err);
+      res.status(404);
+      res.send(err);
+    })
+})
+
 let port = 3000;
 
 app.listen(port, function() {

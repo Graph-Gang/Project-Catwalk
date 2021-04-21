@@ -1,6 +1,7 @@
 import React from 'react';
 import List from './components/reviews/reviewsList.jsx';
 import StarRating from '../ProductDetail/components/ProductInfo/components/starRating.jsx';
+import Snapshot from './components/ratings/snapshot.jsx';
 
 
 class RatingReview extends React.Component {
@@ -9,7 +10,19 @@ class RatingReview extends React.Component {
     this.state = {
       reviews: this.props.reviews,
       display: null,
-      button: null
+      button: null,
+      ratings: {
+        product_id: '17067',
+        ratings: { '2': '1', '3': '5', '4': '9', '5': '1' },
+        recommended: { false: '11', true: '5' },
+        characteristics: {
+          Fit: { id: 57222, value: '3.2500000000000000' },
+          Length: { id: 57223, value: '4.0000000000000000' },
+          Comfort: { id: 57224, value: '4.2000000000000000' },
+          Quality: { id: 57225, value: '3.5000000000000000' }
+        }
+      }
+
     }
     this.handleClick = this.handleClick.bind(this);
     this.renderButton = this.renderButton.bind(this);
@@ -30,7 +43,8 @@ class RatingReview extends React.Component {
     if (this.props.reviews !== prevProps.reviews) {
       this.setState({
         display: [this.props.reviews[0], this.props.reviews[1]],
-        button: true
+        button: true,
+        ratings: this.props.ratings.characteristics
       })
     }
     this.renderButton();
@@ -47,6 +61,11 @@ class RatingReview extends React.Component {
   render() {
     return(
       <div>
+        {
+          this.state.ratings ?
+          <Snapshot StarRating={StarRating} ratings={this.state.ratings}/> :
+          null
+        }
         {
           this.state.display ?
           <List StarRating={StarRating} reviews={this.state.display}/> :

@@ -16,6 +16,13 @@ const Review = (props) => {
       <div>{formatted}</div>
       <h2>{props.review.summary}</h2>
       <div>{props.review.body}</div>
+      {props.review.recommend ?
+      <>
+        <img src="https://www.seekpng.com/png/detail/445-4453053_form-checkmark-password-icon-png-green.png" className='reviewCheckMark'/>
+        <div>I recommend this product</div>
+      </>
+      : null}
+      {/* {props.review.recommend ? <input readOnly type="checkbox" checked>I recommend this product</input> : null} */}
       <button>Helpful?</button>
       <div>Yes ({props.review.helpfulness})</div>
 
