@@ -14,8 +14,13 @@ class App extends React.Component {
       product_id: 17067,
       product_styles: [],
       questions: '',
+<<<<<<< HEAD
       markedHelpful: [],
       reviews: []
+=======
+      reviews: [],
+      ratings: {}
+>>>>>>> master
     }
 
     this.fetchAll = this.fetchAll.bind(this);
@@ -23,8 +28,12 @@ class App extends React.Component {
     this.fetchProductStyle = this.fetchProductStyle.bind(this);
     this.fetchQuestions = this.fetchQuestions.bind(this);
     this.fetchReviews = this.fetchReviews.bind(this);
+<<<<<<< HEAD
     this.incrementQHelpfulness = this.incrementQHelpfulness.bind(this);
     this.incrementAHelpfulness = this.incrementAHelpfulness.bind(this);
+=======
+    this.fetchRatings = this.fetchRatings.bind(this);
+>>>>>>> master
   }
 
   fetchAll() {
@@ -136,12 +145,26 @@ class App extends React.Component {
   }
 }
 
+  fetchRatings(id) {
+    axios.get('/reviews/meta/' + id)
+      .then((results) => {
+        console.log('Success getting all ratings from API');
+        this.setState({
+          ratings: results.data
+        });
+      })
+      .catch((err) => {
+        console.log('Error getting all ratings from API');
+      })
+  }
+
   componentDidMount() {
     this.fetchAll();
     this.fetchOne(this.state.product_id);
     this.fetchProductStyle(this.state.product_id);
     this.fetchQuestions(this.state.product_id);
-    //this.fetchReviews(this.state.product_id);
+    this.fetchReviews(this.state.product_id);
+    this.fetchRatings(this.state.product_id);
   }
 
   render() {
@@ -156,7 +179,7 @@ class App extends React.Component {
         </div>
         <hr></hr>
         <div>
-          <RatingReview reviews={this.state.reviews}/>
+          <RatingReview reviews={this.state.reviews} ratings={this.state.ratings}/>
         </div>
       </div>
     )
