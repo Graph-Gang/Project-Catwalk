@@ -14,7 +14,9 @@ class App extends React.Component {
       product_id: 17067,
       product_styles: [],
       questions: '',
-      reviews: []
+      markedHelpful: [],
+      reviews: [],
+      ratings: {}
     }
 
     this.fetchAll = this.fetchAll.bind(this);
@@ -22,6 +24,9 @@ class App extends React.Component {
     this.fetchProductStyle = this.fetchProductStyle.bind(this);
     this.fetchQuestions = this.fetchQuestions.bind(this);
     this.fetchReviews = this.fetchReviews.bind(this);
+    this.incrementQHelpfulness = this.incrementQHelpfulness.bind(this);
+    this.incrementAHelpfulness = this.incrementAHelpfulness.bind(this);
+    this.fetchRatings = this.fetchRatings.bind(this);
   }
 
   fetchAll() {
@@ -68,6 +73,7 @@ class App extends React.Component {
     axios.get(`/qa/questions/${id}`)
       .then((results) => {
         this.setState({
+          //questions auto-sort from the db based on helpfulness
           questions: results.data
         })
       })
@@ -90,12 +96,68 @@ class App extends React.Component {
       })
   }
 
+  //increment the helpfulness of a question
+  incrementQHelpfulness(id) {
+    if (this.state.markedHelpful.includes(id)){
+      return;
+    } else {
+      axios.put(`qa/questions/${id}/helpful`)
+        .then((result) => {
+          this.setState({
+            //update array for clicked helpfulness questions
+            markedHelpful: [...this.state.markedHelpful, id]
+          })
+          return;
+        })
+        .then(() => {
+          //get all questions for product to update helpfulness count withour reload
+          this.fetchQuestions(this.state.product_id);
+        })
+        .catch((err) => {
+          console.log('Not marked helpful: ', err)
+        })
+    }
+  }
+
+  //increment helpfulness of an answer
+  incrementAHelpfulness(id) {
+    if (this.state.markedHelpful.includes(id)){
+      return;
+    } else {
+    axios({
+      method: 'put',
+      url: `/qa/answers/${id}/helpful`,
+    })
+    .then(result => {
+      this.setState({
+        markedHelpful: [...this.state.markedHelpful, id]
+      })
+      //update answerhelpfulness without reloading page
+      this.fetchQuestions(this.state.product_id)
+    })
+  }
+}
+
+  fetchRatings(id) {
+    axios.get('/reviews/meta/' + id)
+      .then((results) => {
+        console.log('Success getting all ratings from API');
+        this.setState({
+          ratings: results.data
+        });
+      })
+      .catch((err) => {
+        console.log('Error getting all ratings from API');
+      })
+  }
+
   componentDidMount() {
     this.fetchAll();
     this.fetchOne(this.state.product_id);
     this.fetchProductStyle(this.state.product_id);
     this.fetchQuestions(this.state.product_id);
     this.fetchReviews(this.state.product_id);
+    this.fetchRatings(this.state.product_id);
   }
 
   render() {
@@ -106,11 +168,11 @@ class App extends React.Component {
         </div>
         <hr></hr>
         <div>
-          <QuestionsAnswers products={this.state.products} questions={this.state.questions}/>
+          <QuestionsAnswers incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} products={this.state.products} questions={this.state.questions}/>
         </div>
         <hr></hr>
         <div>
-          <RatingReview reviews={this.state.reviews}/>
+          <RatingReview reviews={this.state.reviews} ratings={this.state.ratings}/>
         </div>
       </div>
     )
