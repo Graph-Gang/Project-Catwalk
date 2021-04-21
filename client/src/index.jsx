@@ -130,6 +130,7 @@ class App extends React.Component {
       this.setState({
         markedHelpful: [...this.state.markedHelpful, id]
       })
+      //update answerhelpfulness without reloading page
       this.fetchQuestions(this.state.product_id)
     })
   }
