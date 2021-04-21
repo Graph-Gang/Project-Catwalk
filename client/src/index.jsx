@@ -14,6 +14,7 @@ class App extends React.Component {
       product_id: 17067,
       product_styles: [],
       questions: '',
+      markedHelpful: [],
       reviews: []
     }
 
@@ -22,6 +23,8 @@ class App extends React.Component {
     this.fetchProductStyle = this.fetchProductStyle.bind(this);
     this.fetchQuestions = this.fetchQuestions.bind(this);
     this.fetchReviews = this.fetchReviews.bind(this);
+    this.incrementQHelpfulness = this.incrementQHelpfulness.bind(this);
+    this.incrementAHelpfulness = this.incrementAHelpfulness.bind(this);
   }
 
   fetchAll() {
@@ -68,18 +71,14 @@ class App extends React.Component {
     axios.get(`/qa/questions/${id}`)
       .then((results) => {
         this.setState({
+          //questions auto-sort from the db based on helpfulness
           questions: results.data
         })
       })
       .catch((err) => {
         console.log(err)
       })
-<<<<<<< HEAD
     }
-=======
-  }
-
->>>>>>> master
 
 
   fetchReviews(id) {
@@ -94,6 +93,47 @@ class App extends React.Component {
         console.log('Error getting all reviews from API');
       })
   }
+
+  //increment the helpfulness of a question
+  incrementQHelpfulness(id) {
+    if (this.state.markedHelpful.includes(id)){
+      return;
+    } else {
+      axios.put(`qa/questions/${id}/helpful`)
+        .then((result) => {
+          this.setState({
+            //update array for clicked helpfulness questions
+            markedHelpful: [...this.state.markedHelpful, id]
+          })
+          return;
+        })
+        .then(() => {
+          //get all questions for product to update helpfulness count withour reload
+          this.fetchQuestions(this.state.product_id);
+        })
+        .catch((err) => {
+          console.log('Not marked helpful: ', err)
+        })
+    }
+  }
+
+  //increment helpfulness of an answer
+  incrementAHelpfulness(id) {
+    if (this.state.markedHelpful.includes(id)){
+      return;
+    } else {
+    axios({
+      method: 'put',
+      url: `/qa/answers/${id}/helpful`,
+    })
+    .then(result => {
+      this.setState({
+        markedHelpful: [...this.state.markedHelpful, id]
+      })
+      this.fetchQuestions(this.state.product_id)
+    })
+  }
+}
 
   componentDidMount() {
     this.fetchAll();
@@ -111,7 +151,7 @@ class App extends React.Component {
         </div>
         <hr></hr>
         <div>
-          <QuestionsAnswers products={this.state.products} questions={this.state.questions}/>
+          <QuestionsAnswers incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} products={this.state.products} questions={this.state.questions}/>
         </div>
         <hr></hr>
         <div>

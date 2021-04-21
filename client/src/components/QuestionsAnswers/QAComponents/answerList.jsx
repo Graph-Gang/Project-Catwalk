@@ -6,10 +6,8 @@ const AnswerList = (props) => {
   //create list of answers
   let answers = [];
   for (let key in props.q.answers) {
-    answers.push(<Answer key={key} a={props.q.answers[key]} />)
+    answers.push(<Answer incAHelp={props.incAHelp} key={key} a={props.q.answers[key]} />)
   }
-
-  //sort answers by helpfullness
 
 
   //render the first two answers

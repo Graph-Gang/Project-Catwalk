@@ -96,6 +96,43 @@ app.get('/qa/questions/:product_id', (req, res) => {
     })
 })
 
+//handle put request to increment question Helpfulness count
+app.put('/qa/questions/:question_id/helpful', (req, res) => {
+  let questionId = req.params.question_id;
+  let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${questionId}/helpful`;
+  let options = {
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': config.TOKEN
+    },
+  }
+
+  axios({
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${questionId}/helpful`,
+    headers: {'Authorization': config.TOKEN}
+  })
+    .then((result)=>{
+      res.status(204)
+      res.end()
+    })
+})
+
+//handle put request to increment answer helpfulness count
+app.put('/qa/answers/:answer_id/helpful', (req, res) => {
+  let answerId = req.params.answer_id
+
+  axios({
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${answerId}/helpful`,
+    headers: {'Authorization': config.TOKEN}
+  })
+  .then((result) => {
+    res.status(204)
+    res.end()
+  })
+})
+
 app.get('/reviews/:product_id', function (req, res) {
   let id = req.params.product_id;
   let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`
