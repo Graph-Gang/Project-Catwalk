@@ -1,4 +1,5 @@
 import React from 'react';
+import { DateTime } from 'luxon';
 
 const Answer = (props) => {
 
@@ -9,10 +10,13 @@ const Answer = (props) => {
     props.a.reported = 'Report';
   }
 
+  //format date
+  let date = DateTime.fromISO(props.a.date).toLocaleString(DateTime.DATE_FULL);
+
   return (
     <div>
       <p> {props.a.body}</p>
-      <p>by {props.a.answerer_name} {props.a.date} | Helpful? <span onClick={() => {props.incAHelp(props.a.id)}}>Yes</span> ({props.a.helpfulness})| <span onClick={() => {props.reportA(props.q, props.a)}}>{props.a.reported}</span></p>
+      <p>by {props.a.answerer_name}, {date} | Helpful? <span onClick={() => {props.incAHelp(props.a.id)}}>Yes</span> ({props.a.helpfulness})| <span onClick={() => {props.reportA(props.q, props.a)}}>{props.a.reported}</span></p>
     </div>
   )
 }

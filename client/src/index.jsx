@@ -156,6 +156,7 @@ reportAnswer(q, a) {
         reported: [...this.state.reported, a.id],
       })
       //not re-fetching all questions right away to show the report/reported change
+      //reported answer will be removed once page reloads
       //this.fetchQuestions(this.state.product_id)
     })
   }
