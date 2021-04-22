@@ -16,7 +16,7 @@ const Answer = (props) => {
   return (
     <div>
       <p> {props.a.body}</p>
-      <p>by {props.a.answerer_name}, {date} | Helpful? <span onClick={() => {props.incAHelp(props.a.id)}}>Yes</span> ({props.a.helpfulness})| <span onClick={() => {props.reportA(props.q, props.a)}}>{props.a.reported}</span></p>
+      <p>by {props.a.answerer_name}, {date} | Helpful? <button onClick={() => {props.incAHelp(props.a.id)}}>Yes</button> ({props.a.helpfulness})| <button onClick={() => {props.reportA(props.q, props.a)}}>{props.a.reported}</button></p>
     </div>
   )
 }

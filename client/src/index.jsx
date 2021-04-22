@@ -17,7 +17,8 @@ class App extends React.Component {
       markedHelpful: [],
       reviews: [],
       ratings: {},
-      reported:[]
+      reported:[],
+      loadMoreAnswers: []
     }
 
     this.fetchAll = this.fetchAll.bind(this);
@@ -29,6 +30,7 @@ class App extends React.Component {
     this.incrementAHelpfulness = this.incrementAHelpfulness.bind(this);
     this.fetchRatings = this.fetchRatings.bind(this);
     this.reportAnswer = this.reportAnswer.bind(this);
+    this.loadMore = this.loadMore.bind(this);
   }
 
   fetchAll() {
@@ -162,6 +164,13 @@ reportAnswer(q, a) {
   }
 }
 
+//add question_Id to loadMoreAnswers in state
+loadMore(id) {
+  this.setState({
+    loadMoreAnswers: [...this.state.loadMoreAnswers, id]
+  })
+}
+
   fetchRatings(id) {
     axios.get('/reviews/meta/' + id)
       .then((results) => {
@@ -192,7 +201,7 @@ reportAnswer(q, a) {
         </div>
         <hr></hr>
         <div>
-          <QuestionsAnswers reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} products={this.state.products} questions={this.state.questions}/>
+          <QuestionsAnswers loadMoreAnswers={this.state.loadMoreAnswers} loadMore={this.loadMore} reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} products={this.state.products} questions={this.state.questions}/>
         </div>
         <hr></hr>
         <div>

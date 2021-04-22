@@ -8,7 +8,7 @@ const QuestionList = (props) => {
   let questions = [];
   if(props.questions.results !== undefined) {
     props.questions.results.forEach((q, index) => {
-      questions.push(<Question reported={props.reported} reportA={props.reportA} incAHelp={props.incAHelp} incQHelp={props.incQHelp} key={q.question_id} q={q} /> )
+      questions.push(<Question loadMoreAnswers={props.loadMoreAnswers} loadMore={props.loadMore} reported={props.reported} reportA={props.reportA} incAHelp={props.incAHelp} incQHelp={props.incQHelp} key={q.question_id} q={q} /> )
     })
   }
 
