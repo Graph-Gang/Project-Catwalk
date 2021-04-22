@@ -1,4 +1,5 @@
 import React from 'react';
+import Characteristics from './characteristics.jsx';
 
 const Snapshot = (props) => {
   let ratings = props.ratings.ratings;
@@ -13,6 +14,7 @@ const Snapshot = (props) => {
   }
   let rate = rating(ratings);
   let rounded = Math.round(rate.average * 10) / 10;
+  let recommended = Math.floor((props.ratings.recommended.true / rate.reviews) * 100);
 
   return (
     <div>
@@ -22,24 +24,30 @@ const Snapshot = (props) => {
         <span>Out of {rate.reviews} reviews</span>
       </div>
       <div>
+        <div>{recommended}% of reviews recommend this product</div>
+      </div>
+      <div>
         <span>5 stars</span>
-        <input type="range" disabled value="25"></input>
+        <input type="range" disabled value={((props.ratings.ratings['5'] || 0) / rate.reviews) * 100}></input>
       </div>
       <div>
         <span>4 stars</span>
-        <input type="range" disabled value="75"></input>
+        <input type="range" disabled value={((props.ratings.ratings['4'] || 0) / rate.reviews) * 100}></input>
       </div>
       <div>
         <span>3 stars</span>
-        <input type="range" disabled value="50"></input>
+        <input type="range" disabled value={((props.ratings.ratings['3'] || 0) / rate.reviews) * 100}></input>
       </div>
       <div>
         <span>2 stars</span>
-        <input type="range" disabled value="25"></input>
+        <input type="range" disabled value={((props.ratings.ratings['2'] || 0) / rate.reviews) * 100}></input>
       </div>
       <div>
         <span>1 stars</span>
-        <input type="range" disabled value="0"></input>
+        <input type="range" disabled value={((props.ratings.ratings['1'] || 0) / rate.reviews) * 100}></input>
+      </div>
+      <div>
+        <Characteristics characteristics={props.ratings.characteristics}/>
       </div>
     </div>
   )
