@@ -44,7 +44,7 @@ class RatingReview extends React.Component {
       this.setState({
         display: [this.props.reviews[0], this.props.reviews[1]],
         button: true,
-        ratings: this.props.ratings.characteristics
+        // ratings: this.props.ratings
       })
     }
     this.renderButton();
