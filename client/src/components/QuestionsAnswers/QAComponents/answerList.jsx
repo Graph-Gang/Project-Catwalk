@@ -8,24 +8,48 @@ const AnswerList = (props) => {
   //sort answers by helpfulness
   let sorted = Object.entries(props.q.answers).sort((a, b) =>  b[1].helpfulness -a[1].helpfulness)
 
-  //a[1] = props.q.answers[key]
-  //a[0] = key
+  //build answers array
   sorted.forEach((a) => {
-    answers.push(<Answer incAHelp={props.incAHelp} key={a[0]} a={a[1]} />)
+    answers.push(<Answer q={props.q} reported={props.reported} reportA={props.reportA} incAHelp={props.incAHelp} key={a[0]} a={a[1]} />)
   })
 
-  // for (let key in props.q.answers) {
-  //   console.log('here: ', key)
-  //   answers.push(<Answer incAHelp={props.incAHelp} key={key} a={props.q.answers[key]} />)
-  // }
-
-
-  //render the first two answers
-  return (
+  //if there are not more than two answers and loadMoreAnswers does not include the question id
+  if (answers.length > 2 && !props.loadMoreAnswers.includes(props.q.question_id)) {
+    //render two answers with a load more answers button
+    //load more answers will add the question id to loadMoreAnswers in state when clicked
+    return (
+      <div>
+        A: {answers.slice(0, 2)}
+        <button onClick={() => props.loadMore(props.q.question_id)}>Load More Answers</button>
+      </div>
+    )
+  } else if (answers.length > 2 && props.loadMoreAnswers.includes(props.q.question_id)) {
+    //load all answers with Collapse Answers Button
+    return (
+      <div>
+        A: {answers}
+        <button onClick={()=> {props.collapseAnswers(props.q.question_id)}}>Collapse Answers</button>
+      </div>
+    )
+  } else {
     <div>
-     <div>A: {answers.slice(0, 2)} </div>
+      A: {answers}
     </div>
-  )
+  }
+
+
+  //on click of load more answers button
+  //load the the remaining answers
+
+
+  //show the first two answers
+  // return (
+  //   <div>
+  //    <div>
+  //      A: {answers.slice(0, 2)}
+  //    </div>
+  //   </div>
+  // )
 }
 
 

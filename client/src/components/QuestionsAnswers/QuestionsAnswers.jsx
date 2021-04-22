@@ -13,8 +13,8 @@ const QuestionsAnswers = (props) => {
     <div>
       <h4>Questions & Answers </h4>
       <Search />
-      <QuestionList incAHelp={props.incAHelp} incQHelp={props.incQHelp} questions={props.questions}/>
-      <AddAnswer />
+      <QuestionList toggleAnswerModal={props.toggleAnswerModal} collapseAnswers={props.collapseAnswers} loadMoreAnswers={props.loadMoreAnswers} loadMore={props.loadMore} reported={props.reported} reportA={props.reportA} incAHelp={props.incAHelp} incQHelp={props.incQHelp} questions={props.questions}/>
+      <AddAnswer product={props.product} answerModalQ={props.answerModalQ} showAnswerModal={props.showAnswerModal} />
       <AddQuestion />
     </div>
 
