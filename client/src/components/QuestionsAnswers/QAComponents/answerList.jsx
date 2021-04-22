@@ -11,7 +11,7 @@ const AnswerList = (props) => {
   //a[1] = props.q.answers[key]
   //a[0] = key
   sorted.forEach((a) => {
-    answers.push(<Answer incAHelp={props.incAHelp} key={a[0]} a={a[1]} />)
+    answers.push(<Answer q={props.q} reported={props.reported} reportA={props.reportA} incAHelp={props.incAHelp} key={a[0]} a={a[1]} />)
   })
 
   // for (let key in props.q.answers) {

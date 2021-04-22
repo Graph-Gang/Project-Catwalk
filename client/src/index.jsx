@@ -16,7 +16,8 @@ class App extends React.Component {
       questions: '',
       markedHelpful: [],
       reviews: [],
-      ratings: {}
+      ratings: {},
+      reported:[]
     }
 
     this.fetchAll = this.fetchAll.bind(this);
@@ -27,6 +28,7 @@ class App extends React.Component {
     this.incrementQHelpfulness = this.incrementQHelpfulness.bind(this);
     this.incrementAHelpfulness = this.incrementAHelpfulness.bind(this);
     this.fetchRatings = this.fetchRatings.bind(this);
+    this.reportAnswer = this.reportAnswer.bind(this);
   }
 
   fetchAll() {
@@ -132,8 +134,29 @@ class App extends React.Component {
       this.setState({
         markedHelpful: [...this.state.markedHelpful, id]
       })
-      //update answerhelpfulness without reloading page
+      //update answer helpfulness without reloading page
       this.fetchQuestions(this.state.product_id)
+    })
+  }
+}
+
+//Report answer
+reportAnswer(q, a) {
+  if (this.state.reported.includes(a.id)) {
+    return;
+  } else {
+    //update the answer has been reported in the db
+    axios({
+      method: 'put',
+      url: `/qa/answers/${a.id}/report`
+    })
+    .then((result) => {
+      //update state to capture which answers have been reported
+      this.setState({
+        reported: [...this.state.reported, a.id],
+      })
+      //not re-fetching all questions right away to show the report/reported change
+      //this.fetchQuestions(this.state.product_id)
     })
   }
 }
@@ -168,7 +191,7 @@ class App extends React.Component {
         </div>
         <hr></hr>
         <div>
-          <QuestionsAnswers incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} products={this.state.products} questions={this.state.questions}/>
+          <QuestionsAnswers reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} products={this.state.products} questions={this.state.questions}/>
         </div>
         <hr></hr>
         <div>

@@ -13,7 +13,7 @@ const QuestionsAnswers = (props) => {
     <div>
       <h4>Questions & Answers </h4>
       <Search />
-      <QuestionList incAHelp={props.incAHelp} incQHelp={props.incQHelp} questions={props.questions}/>
+      <QuestionList reported={props.reported} reportA={props.reportA} incAHelp={props.incAHelp} incQHelp={props.incQHelp} questions={props.questions}/>
       <AddAnswer />
       <AddQuestion />
     </div>
