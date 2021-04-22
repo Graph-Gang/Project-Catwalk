@@ -28,7 +28,7 @@ const AnswerList = (props) => {
     return (
       <div>
         A: {answers}
-        <button>Collapse Answers</button>
+        <button onClick={()=> {props.collapseAnswers(props.q.question_id)}}>Collapse Answers</button>
       </div>
     )
   } else {

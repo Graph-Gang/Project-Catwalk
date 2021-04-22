@@ -18,7 +18,9 @@ class App extends React.Component {
       reviews: [],
       ratings: {},
       reported:[],
-      loadMoreAnswers: []
+      loadMoreAnswers: [],
+      showAddAnswerForm: false,
+      answerModalQ: ''
     }
 
     this.fetchAll = this.fetchAll.bind(this);
@@ -31,6 +33,8 @@ class App extends React.Component {
     this.fetchRatings = this.fetchRatings.bind(this);
     this.reportAnswer = this.reportAnswer.bind(this);
     this.loadMore = this.loadMore.bind(this);
+    this.collapseAnswers = this.collapseAnswers.bind(this);
+    this.toggleAnswerModal = this.toggleAnswerModal.bind(this);
   }
 
   fetchAll() {
@@ -171,6 +175,26 @@ loadMore(id) {
   })
 }
 
+//collapse answers by removing question_id from loadMoreAnswers
+collapseAnswers(id) {
+  let answersIds = [...this.state.loadMoreAnswers];
+  let index = answersIds.indexOf(id);
+  if (index !== -1) {
+    answersIds.splice(index, 1);
+    this.setState({
+      loadMoreAnswers: answersIds
+    })
+  }
+}
+
+//toggle showAnswerModal and set answerModalQ
+toggleAnswerModal(q) {
+  this.setState({
+    showAddAnswerForm: !this.state.showAddAnswerForm,
+    answerModalQ: q
+  })
+}
+
   fetchRatings(id) {
     axios.get('/reviews/meta/' + id)
       .then((results) => {
@@ -201,7 +225,7 @@ loadMore(id) {
         </div>
         <hr></hr>
         <div>
-          <QuestionsAnswers loadMoreAnswers={this.state.loadMoreAnswers} loadMore={this.loadMore} reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} products={this.state.products} questions={this.state.questions}/>
+          <QuestionsAnswers answerModalQ={this.state.answerModalQ} toggleAnswerModal={this.toggleAnswerModal} showAnswerModal={this.state.showAddAnswerForm} collapseAnswers={this.collapseAnswers} loadMoreAnswers={this.state.loadMoreAnswers} loadMore={this.loadMore} reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} product={this.state.product} products={this.state.products} questions={this.state.questions}/>
         </div>
         <hr></hr>
         <div>
