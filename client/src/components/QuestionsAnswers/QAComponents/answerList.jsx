@@ -32,9 +32,11 @@ const AnswerList = (props) => {
       </div>
     )
   } else {
+    return (
     <div>
       A: {answers}
     </div>
+    )
   }
 
 

@@ -13,6 +13,14 @@ class RatingReview extends React.Component {
       display: null,
       button: null,
       show: false,
+      bigPhoto: false,
+      bigPhotoUrl: '',
+      ratingValue: '',
+      recomendValue: '',
+      summaryValue: 'Example: Best purchase ever!',
+      reviewValue: 'Why did you like the product or not?',
+      nicknameValue: 'Example: jackson11!',
+      emailValue: 'Example: jackson11@email.com',
       ratings: {
         product_id: '17067',
         ratings: { '2': '1', '3': '5', '4': '9', '5': '1' },
@@ -28,6 +36,24 @@ class RatingReview extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.showAdd = this.showAdd.bind(this);
+    this.showPhoto = this.showPhoto.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(e) {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
+    this.setState({
+      [name]: value
+    })
+  }
+
+  showPhoto(e) {
+    this.setState({
+      bigPhoto: !this.state.bigPhoto,
+      bigPhotoUrl: e.target.name
+    })
   }
 
   showAdd() {
@@ -77,7 +103,13 @@ class RatingReview extends React.Component {
         }
         {
           this.state.display ?
-          <List StarRating={StarRating} reviews={this.state.display}/> :
+          <List
+          bigPhoto={this.state.bigPhoto}
+          bigPhotoUrl={this.state.bigPhotoUrl}
+          onClose={this.showPhoto}
+          showPhoto={this.showPhoto}
+          StarRating={StarRating}
+          reviews={this.state.display}/> :
           null
         }
         {
@@ -85,7 +117,17 @@ class RatingReview extends React.Component {
           <button onClick={this.handleClick}>More Reviews</button> :
           this.renderButton()
         }
-        <AddReview onClose={this.showAdd} show={this.state.show}/>
+        <AddReview
+         onChange={this.handleInputChange}
+          onClose={this.showAdd}
+          show={this.state.show}
+          recomendValue={this.state.recomendValue}
+          ratingValue={this.state.ratingValue}
+          summaryValue={this.state.summaryValue}
+          reviewValue={this.state.reviewValue}
+          nicknameValue={this.state.nicknameValue}
+          emailValue={this.state.emailValue}
+          />
         <button onClick={this.showAdd}>Add Reviews</button>
       </div>
     )
