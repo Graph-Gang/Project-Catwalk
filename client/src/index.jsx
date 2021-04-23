@@ -35,6 +35,8 @@ class App extends React.Component {
     this.loadMore = this.loadMore.bind(this);
     this.collapseAnswers = this.collapseAnswers.bind(this);
     this.toggleAnswerModal = this.toggleAnswerModal.bind(this);
+    this.submitAnswer = this.submitAnswer.bind(this);
+    this.answerModalValues = this.answerModalValues.bind(this);
   }
 
   fetchAll() {
@@ -195,6 +197,41 @@ toggleAnswerModal(q) {
   })
 }
 
+//submit answer and toggle off answer modal
+submitAnswer(id) {
+  event.preventDefault();
+  axios({
+    method: 'post',
+    url: `/qa/questions/${id}/answers`,
+    data: {
+      body: this.state.answerBody,
+      name: this.state.answerName,
+      email: this.state.answerEmail,
+      //photos: this.state.answerPhotos
+    }
+  })
+  .then((result)=> {
+    this.setState({
+      showAddAnswerForm: !this.state.showAddAnswerForm
+    })
+    this.fetchQuestions(this.state.product_id);
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+//create state values dynamically
+answerModalValues(event) {
+  event.preventDefault();
+  let key = event.target.name;
+  let value = event.target.value;
+
+  this.setState({
+    [key]: value
+  })
+}
+
   fetchRatings(id) {
     axios.get('/reviews/meta/' + id)
       .then((results) => {
@@ -225,7 +262,7 @@ toggleAnswerModal(q) {
         </div>
         <hr></hr>
         <div>
-          <QuestionsAnswers answerModalQ={this.state.answerModalQ} toggleAnswerModal={this.toggleAnswerModal} showAnswerModal={this.state.showAddAnswerForm} collapseAnswers={this.collapseAnswers} loadMoreAnswers={this.state.loadMoreAnswers} loadMore={this.loadMore} reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} product={this.state.product} products={this.state.products} questions={this.state.questions}/>
+          <QuestionsAnswers answerModalValues={this.answerModalValues} submitAnswer={this.submitAnswer} answerModalQ={this.state.answerModalQ} toggleAnswerModal={this.toggleAnswerModal} showAnswerModal={this.state.showAddAnswerForm} collapseAnswers={this.collapseAnswers} loadMoreAnswers={this.state.loadMoreAnswers} loadMore={this.loadMore} reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} product={this.state.product} products={this.state.products} questions={this.state.questions}/>
         </div>
         <hr></hr>
         <div>
