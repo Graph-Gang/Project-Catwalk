@@ -32,24 +32,13 @@ const AnswerList = (props) => {
       </div>
     )
   } else {
+    return (
     <div>
       A: {answers}
     </div>
+    )
   }
 
-
-  //on click of load more answers button
-  //load the the remaining answers
-
-
-  //show the first two answers
-  // return (
-  //   <div>
-  //    <div>
-  //      A: {answers.slice(0, 2)}
-  //    </div>
-  //   </div>
-  // )
 }
 
 

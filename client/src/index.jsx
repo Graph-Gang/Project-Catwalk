@@ -20,7 +20,8 @@ class App extends React.Component {
       reported:[],
       loadMoreAnswers: [],
       showAddAnswerForm: false,
-      answerModalQ: ''
+      answerModalQ: '',
+      photos: []
     }
 
     this.fetchAll = this.fetchAll.bind(this);
@@ -37,6 +38,8 @@ class App extends React.Component {
     this.toggleAnswerModal = this.toggleAnswerModal.bind(this);
     this.submitAnswer = this.submitAnswer.bind(this);
     this.answerModalValues = this.answerModalValues.bind(this);
+    this.handleImage = this.handleImage.bind(this);
+    this.closeAnswerModal = this.closeAnswerModal.bind(this)
   }
 
   fetchAll() {
@@ -197,28 +200,61 @@ toggleAnswerModal(q) {
   })
 }
 
+//only toggle showAnswerModal to close the modal
+closeAnswerModal() {
+  this.setState({
+    showAddAnswerForm: !this.state.showAddAnswerForm
+  })
+}
+
 //submit answer and toggle off answer modal
 submitAnswer(id) {
   event.preventDefault();
-  axios({
-    method: 'post',
-    url: `/qa/questions/${id}/answers`,
-    data: {
-      body: this.state.answerBody,
-      name: this.state.answerName,
-      email: this.state.answerEmail,
-      //photos: this.state.answerPhotos
-    }
-  })
-  .then((result)=> {
-    this.setState({
-      showAddAnswerForm: !this.state.showAddAnswerForm
-    })
-    this.fetchQuestions(this.state.product_id);
-  })
-  .catch(err => {
-    console.log(err)
-  })
+
+  let validEmail = false;
+  let validAnswer = false;
+  let validName = false;
+
+
+
+  //validate email
+  if(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.state.answerEmail)) {
+    validEmail = true;
+  }
+
+  //check if answer body is blank
+  if (/^(?!\s*$).+/.test(this.state.answerBody)) {
+    validAnswer = true;
+  }
+
+  //check if name is blank
+  if (/^(?!\s*$).+/.test(this.state.answerName)) {
+    validName = true;
+  }
+
+  if (validEmail && validAnswer && validName) {
+      axios({
+        method: 'post',
+        url: `/qa/questions/${id}/answers`,
+        data: {
+          body: this.state.answerBody,
+          name: this.state.answerName,
+          email: this.state.answerEmail,
+          photos: this.state.photos
+        }
+      })
+      .then((result)=> {
+        this.setState({
+          showAddAnswerForm: !this.state.showAddAnswerForm
+        })
+        this.fetchQuestions(this.state.product_id);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  } else {
+    alert('You must complete all required fields indicated by the asterisk')
+  }
 }
 
 //create state values dynamically
@@ -227,9 +263,19 @@ answerModalValues(event) {
   let key = event.target.name;
   let value = event.target.value;
 
+
   this.setState({
     [key]: value
   })
+}
+
+//handle image uploads
+handleImage(event) {
+  console.log(event.target.files[0])
+  this.setState({
+    photos: [...this.state.photos, URL.createObjectURL(event.target.files[0])]
+  })
+  console.log(this.state.photos)
 }
 
   fetchRatings(id) {
@@ -262,7 +308,7 @@ answerModalValues(event) {
         </div>
         <hr></hr>
         <div>
-          <QuestionsAnswers answerModalValues={this.answerModalValues} submitAnswer={this.submitAnswer} answerModalQ={this.state.answerModalQ} toggleAnswerModal={this.toggleAnswerModal} showAnswerModal={this.state.showAddAnswerForm} collapseAnswers={this.collapseAnswers} loadMoreAnswers={this.state.loadMoreAnswers} loadMore={this.loadMore} reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} product={this.state.product} products={this.state.products} questions={this.state.questions}/>
+          <QuestionsAnswers closeAnswerModal={this.closeAnswerModal} uploadImg={this.handleImage} photos={this.state.photos} answerModalValues={this.answerModalValues} submitAnswer={this.submitAnswer} answerModalQ={this.state.answerModalQ} toggleAnswerModal={this.toggleAnswerModal} showAnswerModal={this.state.showAddAnswerForm} collapseAnswers={this.collapseAnswers} loadMoreAnswers={this.state.loadMoreAnswers} loadMore={this.loadMore} reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} product={this.state.product} products={this.state.products} questions={this.state.questions}/>
         </div>
         <hr></hr>
         <div>

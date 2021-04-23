@@ -161,7 +161,7 @@ app.post('/qa/questions/:question_id/answers', (req, res) => {
       body: req.body.body,
       name: req.body.name,
       email: req.body.email,
-      photos: [],
+      photos: req.body.photos,
     }
   })
   .then(result => {
