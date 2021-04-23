@@ -14,7 +14,7 @@ const Review = (props) => {
       <props.StarRating rating={props.review.rating}/>
       <div>{props.review.reviewer_name}</div>
       <div>{formatted}</div>
-      <h2>{props.review.summary}</h2>
+      <h3>{props.review.summary}</h3>
       <div>{props.review.body}</div>
       {props.review.recommend ?
       <>
