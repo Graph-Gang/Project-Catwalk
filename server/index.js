@@ -173,12 +173,12 @@ app.get('/reviews/meta/:product_id', function (req, res) {
 
   axios.get(url, options)
     .then((results) => {
-      console.log('ratings results --->', results.data);
+      // console.log('ratings results --->', results.data);
       res.status(200);
       res.send(results.data);
     })
     .catch((err) => {
-      console.log('ratings err --->', err);
+      // console.log('ratings err --->', err);
       res.status(404);
       res.send(err);
     })

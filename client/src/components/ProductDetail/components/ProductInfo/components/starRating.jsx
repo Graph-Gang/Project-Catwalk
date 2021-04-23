@@ -1,7 +1,7 @@
 import React from 'react';
 
 const StarRating = (props) => {
-  let rating = props.rating || 0;
+  let rating = props.rating || 3.6;
   let stars = [];
   while (stars.length < 5) {
     if (rating > 1) {

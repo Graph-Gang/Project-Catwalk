@@ -6,12 +6,17 @@ class ImgGallery extends React.Component {
     this.state = {
       thumbnail_index: 0,
       gallery_index: 0,
+      expanded_view: false,
+      zoomed: false,
     }
     this.handleClick = this.handleClick.bind(this);
     this.leftArrow = this.leftArrow.bind(this);
     this.rightArrow = this.rightArrow.bind(this);
     this.upArrow = this.upArrow.bind(this);
     this.downArrow = this.downArrow.bind(this);
+
+    this.toggleModal = this.toggleModal.bind(this);
+    this.toggleZoom = this.toggleZoom.bind(this);
   }
 
   handleClick(e) {
@@ -27,6 +32,12 @@ class ImgGallery extends React.Component {
     this.setState({
       thumbnail_index: decrement,
     })
+
+    if (decrement < this.state.gallery_index) {
+      this.setState({
+        gallery_index: this.state.gallery_index - 1,
+      })
+    }
   }
 
   rightArrow(e) {
@@ -35,6 +46,12 @@ class ImgGallery extends React.Component {
     this.setState({
       thumbnail_index: increment,
     })
+
+    if (increment >= this.state.gallery_index + 5) {
+      this.setState({
+        gallery_index: this.state.gallery_index + 1,
+      })
+    }
   }
 
   upArrow(e) {
@@ -51,6 +68,20 @@ class ImgGallery extends React.Component {
     })
   }
 
+  toggleModal(e) {
+    e.preventDefault();
+    this.setState({
+      expanded_view: !this.state.expanded_view,
+    })
+  }
+
+  toggleZoom(e) {
+    e.preventDefault();
+    this.setState({
+      zoomed: !this.state.zoomed
+    })
+  }
+
   render() {
     var thumbnailsToRender = [];
     var upArrowStyle = 'hidden';
@@ -63,7 +94,7 @@ class ImgGallery extends React.Component {
         }
       } else {
         this.props.selected.photos.map((photo, i) =>
-          thumbnailsToRender.push(<img key={i} src={photo.thumbnail_url} onClick={this.handleClick} className='gallery_thumbnail' alt={i} style={{border: i === this.state.thumbnail_index ? '0.25vw solid black' : '0.1vw solid grey'}}/>)
+          thumbnailsToRender.push(<img key={i} src={photo.thumbnail_url} onClick={this.handleClick} className='gallery_thumbnail' alt={i} style={i === this.state.thumbnail_index ? {border: '0.25vw solid black'} : {border: '0.1vw solid grey'}}/>)
         )
       }
 
@@ -72,7 +103,7 @@ class ImgGallery extends React.Component {
     }
 
     return (
-      <div className='gallery_grid'>
+      <div className={this.state.expanded_view ? 'modal' : 'gallery_grid'}>
         <div className='vertical_flexbox'>
           <i className='arrow up' onClick={this.upArrow} style={{visibility: upArrowStyle}}></i>
           <div className='gallery'>
@@ -85,12 +116,32 @@ class ImgGallery extends React.Component {
         {this.props.selected.photos !== undefined ?
           <div className='horizontal_flexbox'>
             <i className='arrow left' onClick={this.leftArrow} style={{visibility: this.state.thumbnail_index !== 0 ? 'visible' : 'hidden'}}></i>
-            <div className='main_image'>
-              <img src={this.props.selected.photos[this.state.thumbnail_index].url} className='theIMG'/>
+            <div className={this.state.expanded_view ? 'exp_main_image' : 'main_image'}>
+              {this.state.expanded_view ?
+                this.state.zoomed ?
+                  <div className='zoomed_modal'>
+                    <div className='image_container'>
+                      <img src={this.props.selected.photos[this.state.thumbnail_index].url} className='zoomed_theIMG' onClick={this.toggleZoom}/>
+                    </div>
+                  </div>
+                :
+                  <img src={this.props.selected.photos[this.state.thumbnail_index].url} className='exp_theIMG' onClick={this.toggleZoom}/>
+              :
+                <img src={this.props.selected.photos[this.state.thumbnail_index].url} className='theIMG' onClick={this.toggleModal}/>
+              }
+
             </div>
-            <i className='arrow right' onClick={this.rightArrow} style={{visibility: this.state.thumbnail_index !== this.props.selected.photos.length - 1 ? 'visible' : 'hidden'}}></i>
+            <div>
+              {this.state.expanded_view ?
+                <img className='exit_view_changer' src='full-screen-exit.png' onClick={this.toggleModal}></img>
+              :
+                <img className='view_changer' src='switch-to-full-screen-button.png' onClick={this.toggleModal}></img>
+              }
+              <i className='arrow right' onClick={this.rightArrow} style={{visibility: this.state.thumbnail_index !== this.props.selected.photos.length - 1 ? 'visible' : 'hidden'}}></i>
+            </div>
           </div>
         : <div></div>}
+        <div></div>
       </div>
     )
   }
