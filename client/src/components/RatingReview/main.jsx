@@ -2,6 +2,7 @@ import React from 'react';
 import List from './components/reviews/reviewsList.jsx';
 import StarRating from '../ProductDetail/components/ProductInfo/components/starRating.jsx';
 import Snapshot from './components/ratings/snapshot.jsx';
+import AddReview from './components/reviews/addReview.jsx';
 
 
 class RatingReview extends React.Component {
@@ -11,6 +12,15 @@ class RatingReview extends React.Component {
       reviews: this.props.reviews,
       display: null,
       button: null,
+      show: false,
+      bigPhoto: false,
+      bigPhotoUrl: '',
+      ratingValue: '',
+      recomendValue: '',
+      summaryValue: 'Example: Best purchase ever!',
+      reviewValue: 'Why did you like the product or not?',
+      nicknameValue: 'Example: jackson11!',
+      emailValue: 'Example: jackson11@email.com',
       ratings: {
         product_id: '17067',
         ratings: { '2': '1', '3': '5', '4': '9', '5': '1' },
@@ -22,10 +32,34 @@ class RatingReview extends React.Component {
           Quality: { id: 57225, value: '3.5000000000000000' }
         }
       }
-
     }
     this.handleClick = this.handleClick.bind(this);
     this.renderButton = this.renderButton.bind(this);
+    this.showAdd = this.showAdd.bind(this);
+    this.showPhoto = this.showPhoto.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(e) {
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
+    this.setState({
+      [name]: value
+    })
+  }
+
+  showPhoto(e) {
+    this.setState({
+      bigPhoto: !this.state.bigPhoto,
+      bigPhotoUrl: e.target.name
+    })
+  }
+
+  showAdd() {
+    this.setState({
+      show: !this.state.show
+    })
   }
 
   handleClick() {
@@ -61,6 +95,7 @@ class RatingReview extends React.Component {
   render() {
     return(
       <div>
+        <h2>Ratings and Reviews</h2>
         {
           this.state.ratings ?
           <Snapshot StarRating={StarRating} ratings={this.state.ratings}/> :
@@ -68,7 +103,13 @@ class RatingReview extends React.Component {
         }
         {
           this.state.display ?
-          <List StarRating={StarRating} reviews={this.state.display}/> :
+          <List
+          bigPhoto={this.state.bigPhoto}
+          bigPhotoUrl={this.state.bigPhotoUrl}
+          onClose={this.showPhoto}
+          showPhoto={this.showPhoto}
+          StarRating={StarRating}
+          reviews={this.state.display}/> :
           null
         }
         {
@@ -76,6 +117,18 @@ class RatingReview extends React.Component {
           <button onClick={this.handleClick}>More Reviews</button> :
           this.renderButton()
         }
+        <AddReview
+         onChange={this.handleInputChange}
+          onClose={this.showAdd}
+          show={this.state.show}
+          recomendValue={this.state.recomendValue}
+          ratingValue={this.state.ratingValue}
+          summaryValue={this.state.summaryValue}
+          reviewValue={this.state.reviewValue}
+          nicknameValue={this.state.nicknameValue}
+          emailValue={this.state.emailValue}
+          />
+        <button onClick={this.showAdd}>Add Reviews</button>
       </div>
     )
   }
