@@ -45,7 +45,7 @@ const StarRating = (props) => {
       {stars.map((item, i) => {
         return (
           <div className='single-star-container' key={i}>
-            <div className='single-star-fill' style={{'width' : `${parseInt(item*16)}px`}}>
+            <div className='single-star-fill' style={{'width' : `${parseInt(item*26)}px`}}>
               <img className='single-star-outline' src='star.png' alt='stars alt'></img>
             </div>
           </div>
