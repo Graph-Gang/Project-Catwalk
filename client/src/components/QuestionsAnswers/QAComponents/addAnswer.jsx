@@ -3,11 +3,18 @@ import React from 'react';
 
 const AddAnswer = (props) => {
 
+  //build photo array to preview images
   let photo = [];
   if(props.photos) {
     props.photos.forEach((img, index) => {
       photo.push(<img key={index} src={img} width='150' height='100'/>)
     })
+  }
+
+  //if there are 5 images, show warning
+  let moreThanFiveWarning = null
+  if(props.photoWarn) {
+    moreThanFiveWarning = 'You may only upload five images'
   }
 
   if (props.showAnswerModal){
@@ -45,8 +52,8 @@ const AddAnswer = (props) => {
             <label>
               Upload your photos
               <input onChange={props.uploadImg} type='file' accept='image/*' multiple={false} name='answerPhotos'></input>
-              {photo}
-              <button>Add Photo</button>
+              <div>{photo} </div>
+              <div>{moreThanFiveWarning}</div>
             </label>
           </div>
           <button onClick={()=> {props.submitAnswer(props.answerModalQ.question_id)}}>Submit</button>

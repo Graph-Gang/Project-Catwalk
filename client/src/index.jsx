@@ -21,7 +21,9 @@ class App extends React.Component {
       loadMoreAnswers: [],
       showAddAnswerForm: false,
       answerModalQ: '',
-      photos: []
+      photos: [],
+      photoWarning: false,
+      showAddQuestionForm: false,
     }
 
     this.fetchAll = this.fetchAll.bind(this);
@@ -39,7 +41,10 @@ class App extends React.Component {
     this.submitAnswer = this.submitAnswer.bind(this);
     this.answerModalValues = this.answerModalValues.bind(this);
     this.handleImage = this.handleImage.bind(this);
-    this.closeAnswerModal = this.closeAnswerModal.bind(this)
+    this.closeAnswerModal = this.closeAnswerModal.bind(this);
+    this.toggleQuestionForm = this.toggleQuestionForm.bind(this);
+    this.closeQuestionModal = this.closeQuestionModal.bind(this);
+    this.submitQuestion = this.submitQuestion.bind(this);
   }
 
   fetchAll() {
@@ -257,6 +262,54 @@ submitAnswer(id) {
   }
 }
 
+//submit question
+submitQuestion() {
+  event.preventDefault();
+
+  let validEmail = false;
+  let validQuestion = false;
+  let validName = false;
+
+  //validate email
+  if(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.state.questionEmail)) {
+    validEmail = true;
+  }
+
+  //check if answer body is blank
+  if (/^(?!\s*$).+/.test(this.state.questionBody)) {
+    validQuestion = true;
+  }
+
+  //check if name is blank
+  if (/^(?!\s*$).+/.test(this.state.questionName)) {
+    validName = true;
+  }
+
+  if (validEmail && validQuestion && validName) {
+      axios({
+        method: 'post',
+        url: `/qa/questions`,
+        data: {
+          body: this.state.questionBody,
+          name: this.state.questionName,
+          email: this.state.questionEmail,
+          product_id: this.state.product_id
+        }
+      })
+      .then((result)=> {
+        this.setState({
+          showAddQuestionForm: !this.state.showAddQuestionForm
+        })
+        this.fetchQuestions(this.state.product_id);
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  } else {
+    alert('You must complete all required fields indicated by the asterisk')
+  }
+}
+
 //create state values dynamically
 answerModalValues(event) {
   event.preventDefault();
@@ -271,12 +324,33 @@ answerModalValues(event) {
 
 //handle image uploads
 handleImage(event) {
-  console.log(event.target.files[0])
-  this.setState({
-    photos: [...this.state.photos, URL.createObjectURL(event.target.files[0])]
-  })
-  console.log(this.state.photos)
+  if(this.state.photos.length < 5) {
+      this.setState({
+        photos: [...this.state.photos, URL.createObjectURL(event.target.files[0])]
+      })
+  } else {
+    if (!this.state.photoWarning) {
+      this.setState({
+        photoWarning: true
+      })
+    }
+  }
 }
+
+//Toggle showAddQuestionForm
+toggleQuestionForm() {
+  this.setState({
+    showAddQuestionForm: !this.state.showAddQuestionForm
+  })
+}
+
+//close questionModal
+closeQuestionModal() {
+  this.setState({
+    showAddQuestionForm: !this.state.showAddQuestionForm
+  })
+}
+
 
   fetchRatings(id) {
     axios.get('/reviews/meta/' + id)
@@ -308,7 +382,7 @@ handleImage(event) {
         </div>
         <hr></hr>
         <div>
-          <QuestionsAnswers closeAnswerModal={this.closeAnswerModal} uploadImg={this.handleImage} photos={this.state.photos} answerModalValues={this.answerModalValues} submitAnswer={this.submitAnswer} answerModalQ={this.state.answerModalQ} toggleAnswerModal={this.toggleAnswerModal} showAnswerModal={this.state.showAddAnswerForm} collapseAnswers={this.collapseAnswers} loadMoreAnswers={this.state.loadMoreAnswers} loadMore={this.loadMore} reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} product={this.state.product} products={this.state.products} questions={this.state.questions}/>
+          <QuestionsAnswers submitQuestion={this.submitQuestion} showAddQuestionForm={this.state.showAddQuestionForm} showQuestionModal={this.toggleQuestionForm} closeQuestionModal={this.closeQuestionModal} photoWarn={this.state.photoWarning} closeAnswerModal={this.closeAnswerModal} uploadImg={this.handleImage} photos={this.state.photos} answerModalValues={this.answerModalValues} submitAnswer={this.submitAnswer} answerModalQ={this.state.answerModalQ} toggleAnswerModal={this.toggleAnswerModal} showAnswerModal={this.state.showAddAnswerForm} collapseAnswers={this.collapseAnswers} loadMoreAnswers={this.state.loadMoreAnswers} loadMore={this.loadMore} reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} product={this.state.product} products={this.state.products} questions={this.state.questions}/>
         </div>
         <hr></hr>
         <div>
