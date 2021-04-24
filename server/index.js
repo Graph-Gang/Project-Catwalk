@@ -132,6 +132,21 @@ app.put('/qa/answers/:answer_id/helpful', (req, res) => {
   })
 })
 
+//handle put request to increment answer helpfulness count
+app.put('/qa/answers/:answer_id/report', (req, res) => {
+  let answerId = req.params.answer_id
+
+  axios({
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/answers/${answerId}/report`,
+    headers: {'Authorization': config.TOKEN}
+  })
+  .then((result) => {
+    res.status(204)
+    res.end()
+  })
+})
+
 app.get('/reviews/:product_id', function (req, res) {
   let id = req.params.product_id;
   let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`
