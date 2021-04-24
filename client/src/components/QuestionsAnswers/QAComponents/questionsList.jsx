@@ -17,7 +17,6 @@ const QuestionList = (props) => {
   return (
 
     <div>
-      List of Questions
       {questions.slice(0, 4)}
     </div>
   )

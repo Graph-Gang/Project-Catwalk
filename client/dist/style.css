@@ -1,3 +1,7 @@
+.border {
+  border: black solid 2px;
+}
+
 .answerModal {
   position: fixed;
   left: 0;
@@ -15,4 +19,18 @@
   width: 500px;
   background-color: #fff;
   padding: 20px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+}
+
+.item-a {
+  grid-column-start: 2;
+  grid-column-end: 2;
+}
+
+.sendRight {
+  float: right;
 }
