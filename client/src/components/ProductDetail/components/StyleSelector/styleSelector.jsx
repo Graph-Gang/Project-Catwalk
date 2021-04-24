@@ -1,5 +1,4 @@
 import React from 'react';
-import AddCart from '../AddCart/addCart.jsx';
 
 class StyleSelector extends React.Component {
   constructor(props) {
@@ -24,7 +23,8 @@ class StyleSelector extends React.Component {
 
   handleClick(e) {
     for (var i = 0; i < this.props.product_styles.length; i++) {
-      if (this.props.product_styles[i].name === e.target.title) {
+      if (this.props.product_styles[i].style_id === Number(e.target.alt)) {
+        this.props.selectStyle(this.props.product_styles[i]);
         this.setState({
           selected: this.props.product_styles[i],
           price: this.props.product_styles[i].original_price,
@@ -55,13 +55,10 @@ class StyleSelector extends React.Component {
         <div className='style_grid'>
           {this.props.product_styles.map((style, i) =>
             <div key={i}>
-              <img src="https://www.seekpng.com/png/detail/445-4453053_form-checkmark-password-icon-png-green.png" style={{visibility: style.name === this.state.selected.name ? 'visible' : 'hidden'}} className='checkMark'/>
-              <img src={style.photos[0].thumbnail_url} alt='Style' className='roundedThumbnail' onClick={this.handleClick} title={style.name}/>
+              <img src="https://www.seekpng.com/png/detail/445-4453053_form-checkmark-password-icon-png-green.png" style={{visibility: style.style_id === this.state.selected.style_id ? 'visible' : 'hidden'}} className='checkMark'/>
+              <img src={style.photos[0].thumbnail_url} alt={style.style_id} className='roundedThumbnail' onClick={this.handleClick} title={style.name}/>
             </div>
           )}
-        </div>
-        <div>
-          <AddCart selected={this.state.selected}/>
         </div>
       </div>
     )
