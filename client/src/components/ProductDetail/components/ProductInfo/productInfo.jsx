@@ -3,7 +3,7 @@ import StarRating from './components/starRating.jsx';
 
 const ProductInfo = (props) => (
   <div>
-    <div>
+    <div className='star_section'>
       <StarRating />
       <div className='readReviews'>
         <a href=''>
