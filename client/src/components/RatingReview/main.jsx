@@ -23,19 +23,20 @@ class RatingReview extends React.Component {
       emailValue: 'Example: jackson11@email.com',
       ratings: {
         product_id: '17067',
-        ratings: { '2': '1', '3': '5', '4': '9', '5': '1' },
-        recommended: { false: '11', true: '5' },
+        ratings: { '2': '1', '3': '5', '4': '9', '5': '4' },
+        recommended: { false: '13', true: '6' },
         characteristics: {
-          Fit: { id: 57222, value: '3.2500000000000000' },
-          Length: { id: 57223, value: '4.0000000000000000' },
-          Comfort: { id: 57224, value: '4.2000000000000000' },
-          Quality: { id: 57225, value: '3.5000000000000000' }
+          Fit: { id: 57222, value: '3.1818181818181818' },
+          Length: { id: 57223, value: '3.6250000000000000' },
+          Comfort: { id: 57224, value: '4.2500000000000000' },
+          Quality: { id: 57225, value: '3.7272727272727273' }
         }
       }
     }
     this.handleClick = this.handleClick.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.showAdd = this.showAdd.bind(this);
+    this.post = this.post.bind(this);
     this.showPhoto = this.showPhoto.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -62,6 +63,20 @@ class RatingReview extends React.Component {
     })
   }
 
+  post() {
+    this.props.postReview({
+      rating: this.state.ratingValue,
+      summary: this.state.summaryValue,
+      body: this.state.reviewValue,
+      recomend: this.state.recomendValue,
+      name: this.state.nicknameValue,
+      email: this.state.emailValue
+    })
+    this.setState({
+      show: !this.state.show
+    })
+  }
+
   handleClick() {
     let reviews = this.props.reviews;
     let oldDisplay = this.state.display;
@@ -74,7 +89,7 @@ class RatingReview extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.reviews !== prevProps.reviews) {
+    if (this.props.ratings !== prevProps.ratings) {
       this.setState({
         display: [this.props.reviews[0], this.props.reviews[1]],
         button: true,
@@ -120,6 +135,7 @@ class RatingReview extends React.Component {
         <AddReview
          onChange={this.handleInputChange}
           onClose={this.showAdd}
+          onSubmit={this.post}
           show={this.state.show}
           recomendValue={this.state.recomendValue}
           ratingValue={this.state.ratingValue}
