@@ -1,9 +1,9 @@
 import React from 'react';
 
 const AddReview = (props) => {
-  let onClose = (e) => {
-    props.onClose && props.onClose();
-  };
+  // let onClose = (e) => {
+  //   props.onClose && props.onClose();
+  // };
 
   return (
     <div>
@@ -51,7 +51,7 @@ const AddReview = (props) => {
               <textarea name="emailValue" value={props.emailValue} onChange={props.onChange}></textarea>
             </label>
             <br></br>
-            <input onClick={onClose} type="submit" value="Submit"/>
+            <button onClick={props.onSubmit} type="button" value="Submit">Submit</button>
           </form>
           {/* <div className="addReviewModalContent">
             <button onClick={onClose}>submit</button>

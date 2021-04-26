@@ -5,6 +5,8 @@ const config = require('../config.js');
 let app = express();
 
 app.use(express.static(__dirname + '/../client/dist'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/products', function (req, res) {
   let url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/products'
@@ -147,6 +149,52 @@ app.put('/qa/answers/:answer_id/report', (req, res) => {
   })
 })
 
+//handle post to submit an answer
+app.post('/qa/questions/:question_id/answers', (req, res) => {
+  let questionId = req.params.question_id;
+
+  axios({
+    method: 'post',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/${questionId}/answers`,
+    headers: {'Authorization': config.TOKEN},
+    data: {
+      body: req.body.body,
+      name: req.body.name,
+      email: req.body.email,
+      photos: req.body.photos,
+    }
+  })
+  .then(result => {
+    res.status(201);
+    res.end();
+  })
+  .catch(err => {
+    console.log(err)
+  })
+})
+
+//handle post to submit question
+app.post('/qa/questions', (req, res) => {
+  axios({
+    method: 'post',
+    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/qa/questions/',
+    headers: {'Authorization': config.TOKEN},
+    data: {
+      body: req.body.body,
+      name: req.body.name,
+      email: req.body.email,
+      product_id: req.body.product_id,
+    }
+  })
+  .then((result) => {
+    res.status(201);
+    res.end()
+  })
+  .catch(err => {
+    console.log(err)
+  })
+})
+
 app.get('/reviews/:product_id', function (req, res) {
   let id = req.params.product_id;
   let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`
@@ -156,7 +204,9 @@ app.get('/reviews/:product_id', function (req, res) {
       'Authorization': config.TOKEN
     },
     params: {
-      product_id: id
+      product_id: id,
+      count: 6,
+      page: 2
     }
   }
 
@@ -188,7 +238,7 @@ app.get('/reviews/meta/:product_id', function (req, res) {
 
   axios.get(url, options)
     .then((results) => {
-      // console.log('ratings results --->', results.data);
+      console.log('ratings results --->', results.data);
       res.status(200);
       res.send(results.data);
     })
@@ -197,6 +247,35 @@ app.get('/reviews/meta/:product_id', function (req, res) {
       res.status(404);
       res.send(err);
     })
+})
+
+app.post('/reviews/', function (req, res) {
+  console.log(req.body);
+  res.sendStatus(201);
+  res.end();
+  // let id = req.params.product_id;
+  // let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta/`
+  // let options = {
+  //   headers: {
+  //     'User-Agent': 'request',
+  //     'Authorization': config.TOKEN
+  //   },
+  //   params: {
+  //     product_id: id
+  //   }
+  // }
+
+  // axios.get(url, options)
+  //   .then((results) => {
+  //     // console.log('ratings results --->', results.data);
+  //     res.status(200);
+  //     res.send(results.data);
+  //   })
+  //   .catch((err) => {
+  //     // console.log('ratings err --->', err);
+  //     res.status(404);
+  //     res.send(err);
+  //   })
 })
 
 let port = 3000;
