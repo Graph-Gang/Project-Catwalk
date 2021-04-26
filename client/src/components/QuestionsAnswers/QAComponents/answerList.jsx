@@ -18,23 +18,23 @@ const AnswerList = (props) => {
     //render two answers with a load more answers button
     //load more answers will add the question id to loadMoreAnswers in state when clicked
     return (
-      <div>
-        A: {answers.slice(0, 2)}
-        <button onClick={() => props.loadMore(props.q.question_id)}>Load More Answers</button>
+      <div className='answerListContainer'>
+        <div className='item-b'><span className='question'>A:</span> </div> <div className='item-c'>{answers.slice(0, 2)}</div>
+        <button className='item-c button-c' onClick={() => props.loadMore(props.q.question_id)}>Load More Answers</button>
       </div>
     )
   } else if (answers.length > 2 && props.loadMoreAnswers.includes(props.q.question_id)) {
     //load all answers with Collapse Answers Button
     return (
-      <div>
-        A: {answers}
-        <button onClick={()=> {props.collapseAnswers(props.q.question_id)}}>Collapse Answers</button>
+      <div className='answerListContainer'>
+       <div className='item-b'><span className='question'>A:</span></div> <div className='item-c'>{answers}</div>
+        <button className='item-c button-c' onClick={()=> {props.collapseAnswers(props.q.question_id)}}>Collapse Answers</button>
       </div>
     )
   } else {
     return (
-    <div>
-      A: {answers}
+    <div className='answerListContainer'>
+      <div className='item-b'><span className='question'>A:</span></div> <div className='item-c'>{answers}</div>
     </div>
     )
   }

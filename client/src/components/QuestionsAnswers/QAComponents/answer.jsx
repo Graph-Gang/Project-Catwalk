@@ -21,9 +21,11 @@ const Answer = (props) => {
 
   return (
     <div>
-      <p> {props.a.body}</p>
+    <div className='border'>
+      <p className='answerBody'> {props.a.body}</p>
       <p>{photos}</p>
-      <p>by {props.a.answerer_name}, {date} | Helpful? <button onClick={() => {props.incAHelp(props.a.id)}}>Yes</button> ({props.a.helpfulness}) | <button onClick={() => {props.reportA(props.q, props.a)}}>{props.a.reported}</button></p>
+      <p>by {props.a.answerer_name}, {date} | Helpful? <button className='button-a' onClick={() => {props.incAHelp(props.a.id)}}>Yes</button> ({props.a.helpfulness}) | <button className='button-a' onClick={() => {props.reportA(props.q, props.a)}}>{props.a.reported}</button></p>
+    </div>
     </div>
   )
 }
