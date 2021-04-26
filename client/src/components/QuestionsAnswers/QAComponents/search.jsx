@@ -5,8 +5,7 @@ const Search = (props) => {
 
   return (
     <div>
-      Search
-      <input placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS'></input>
+      <input className='search' onChange={(event) => {props.answerModalValues(event)}} type='text' placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS' name='search'></input>
     </div>
   )
 }
