@@ -89,7 +89,7 @@ class RatingReview extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.ratings !== prevProps.ratings) {
+    if (this.props.reviews !== prevProps.reviews) {
       this.setState({
         display: [this.props.reviews[0], this.props.reviews[1]],
         button: true,
@@ -111,40 +111,42 @@ class RatingReview extends React.Component {
     return(
       <div>
         <h2>Ratings and Reviews</h2>
-        {
-          this.state.ratings ?
-          <Snapshot StarRating={StarRating} ratings={this.state.ratings}/> :
-          null
-        }
-        {
-          this.state.display ?
-          <List
-          bigPhoto={this.state.bigPhoto}
-          bigPhotoUrl={this.state.bigPhotoUrl}
-          onClose={this.showPhoto}
-          showPhoto={this.showPhoto}
-          StarRating={StarRating}
-          reviews={this.state.display}/> :
-          null
-        }
-        {
-          this.state.button ?
-          <button onClick={this.handleClick}>More Reviews</button> :
-          this.renderButton()
-        }
-        <AddReview
-         onChange={this.handleInputChange}
-          onClose={this.showAdd}
-          onSubmit={this.post}
-          show={this.state.show}
-          recomendValue={this.state.recomendValue}
-          ratingValue={this.state.ratingValue}
-          summaryValue={this.state.summaryValue}
-          reviewValue={this.state.reviewValue}
-          nicknameValue={this.state.nicknameValue}
-          emailValue={this.state.emailValue}
-          />
-        <button onClick={this.showAdd}>Add Reviews</button>
+        <div className="ratingReviewGrid">
+          {
+            this.state.ratings ?
+            <Snapshot StarRating={StarRating} ratings={this.state.ratings}/> :
+            null
+          }
+          {
+            this.state.display ?
+            <List
+            bigPhoto={this.state.bigPhoto}
+            bigPhotoUrl={this.state.bigPhotoUrl}
+            onClose={this.showPhoto}
+            showPhoto={this.showPhoto}
+            StarRating={StarRating}
+            reviews={this.state.display}/> :
+            null
+          }
+          {
+            this.state.button ?
+            <button onClick={this.handleClick}>More Reviews</button> :
+            this.renderButton()
+          }
+          <AddReview
+          onChange={this.handleInputChange}
+            onClose={this.showAdd}
+            onSubmit={this.post}
+            show={this.state.show}
+            recomendValue={this.state.recomendValue}
+            ratingValue={this.state.ratingValue}
+            summaryValue={this.state.summaryValue}
+            reviewValue={this.state.reviewValue}
+            nicknameValue={this.state.nicknameValue}
+            emailValue={this.state.emailValue}
+            />
+          <button onClick={this.showAdd}>Add Reviews</button>
+        </div>
       </div>
     )
   }

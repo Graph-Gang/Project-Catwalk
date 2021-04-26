@@ -29,3 +29,10 @@
   justify-content: center;
 
 }
+
+.ratingReviewGrid {
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: 25% 75%;
+  row-gap: 5vh;
+}

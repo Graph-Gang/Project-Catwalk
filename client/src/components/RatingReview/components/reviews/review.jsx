@@ -25,10 +25,10 @@ const Review = (props) => {
         <img src={props.bigPhotoUrl} onClick={props.showPhoto} className="bigPhotoModal"/>
       : null}
       {props.review.recommend ?
-      <>
-        <img src="https://www.seekpng.com/png/detail/445-4453053_form-checkmark-password-icon-png-green.png" className='reviewCheckMark'/>
-        <div>I recommend this product</div>
-      </>
+      <div>
+        <span>I recommend this product</span>
+        <img src="checkmark.png" className='reviewCheckMark'/>
+      </div>
       : null}
       <button>Helpful?</button>
       <div>Yes ({props.review.helpfulness})</div>
