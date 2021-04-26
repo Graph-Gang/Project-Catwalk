@@ -7,7 +7,7 @@ const AddQuestion = (props) => {
     return (
       <div className='answerModal'>
         <div className='answerModalContent'>
-          <div onClick={props.closeQuestionModal}>X</div>
+          <div className='right' onClick={props.closeQuestionModal}>X</div>
           <h3>Ask Your Question</h3>
           <h4>About the {props.product.name}</h4>
           <form>

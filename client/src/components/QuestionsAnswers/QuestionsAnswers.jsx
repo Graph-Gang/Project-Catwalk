@@ -12,7 +12,7 @@ const QuestionsAnswers = (props) => {
   return (
     <div className='container'>
       <div className='item-a'>
-      <h4>Questions & Answers </h4>
+      <h4 className='title'>Questions & Answers </h4>
       <Search answerModalValues={props.answerModalValues}/>
       <QuestionList searchVal={props.searchVal} toggleAnswerModal={props.toggleAnswerModal} collapseAnswers={props.collapseAnswers} loadMoreAnswers={props.loadMoreAnswers} loadMore={props.loadMore} reported={props.reported} reportA={props.reportA} incAHelp={props.incAHelp} incQHelp={props.incQHelp} questions={props.questions}/>
       <AddAnswer photoWarn={props.photoWarn} closeAnswerModal={props.closeAnswerModal} uploadImg={props.uploadImg} photos={props.photos} answerModalValues={props.answerModalValues} submitAnswer={props.submitAnswer} product={props.product} answerModalQ={props.answerModalQ} showAnswerModal={props.showAnswerModal} />

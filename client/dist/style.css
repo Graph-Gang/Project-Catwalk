@@ -107,4 +107,19 @@
 
 .search::placeholder {
   font-weight: bold;
+  padding-left: 10px;
+}
+
+.right {
+  float: right;
+}
+
+.textarea {
+  width: 300px;
+  height: 200px;
+}
+
+.title {
+  font-weight: lighter;
+  font-size: 18px;
 }
