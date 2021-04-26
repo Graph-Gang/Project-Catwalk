@@ -31,6 +31,7 @@ class App extends React.Component {
     this.fetchProductStyle = this.fetchProductStyle.bind(this);
     this.fetchQuestions = this.fetchQuestions.bind(this);
     this.fetchReviews = this.fetchReviews.bind(this);
+    this.postReview = this.postReview.bind(this);
     this.incrementQHelpfulness = this.incrementQHelpfulness.bind(this);
     this.incrementAHelpfulness = this.incrementAHelpfulness.bind(this);
     this.fetchRatings = this.fetchRatings.bind(this);
@@ -112,6 +113,16 @@ class App extends React.Component {
       .catch((err) => {
         console.log('Error getting all reviews from API');
       })
+  }
+
+  postReview(review) {
+    axios.post('/reviews/', review)
+    .then((results) => {
+      console.log('Success posting review', results)
+    })
+    .catch((err) => {
+      console.log('Error posting review', err)
+    })
   }
 
   //increment the helpfulness of a question
@@ -392,7 +403,7 @@ search(event) {
         </div>
         <hr></hr>
         <div>
-          <RatingReview reviews={this.state.reviews} ratings={this.state.ratings}/>
+          <RatingReview postReview={this.postReview} reviews={this.state.reviews} ratings={this.state.ratings}/>
         </div>
       </div>
     )
