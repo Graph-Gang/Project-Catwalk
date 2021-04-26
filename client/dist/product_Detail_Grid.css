@@ -105,6 +105,10 @@
   height: 5vw;
 }
 
+.roundedThumbnail:hover {
+  cursor: pointer;
+}
+
 .checkMark {
   background-repeat: no-repeat;
   object-fit: cover;
@@ -114,7 +118,7 @@
   width: 1.5vw;
   height: 1.5vw;
   position: relative;
-  top: 2.75vh;
+  top: 3.5vh;
   left: 3.75vw;
 }
 
@@ -136,9 +140,17 @@
   width: 60%;
 }
 
+.size_selection:hover {
+  cursor: pointer;
+}
+
 .qty_selection {
   display: inline-block;
   width: 30%;
+}
+
+.qty_selection:hover {
+  cursor: pointer;
 }
 
 .addtocart_button {
@@ -146,6 +158,10 @@
   display: block;
   width: 95%;
   background-color: white;
+}
+
+.addtocart_button:hover {
+  cursor: pointer;
 }
 
 .gallery_grid {
