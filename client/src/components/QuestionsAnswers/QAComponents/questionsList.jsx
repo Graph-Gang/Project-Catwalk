@@ -4,20 +4,43 @@ import Question from './question.jsx'
 
 const QuestionList = (props) => {
 
-  // generate a list of the questions
+
+  //filter questions based on search
   let questions = [];
-  if(props.questions.results !== undefined) {
-    props.questions.results.forEach((q, index) => {
-      questions.push(<Question toggleAnswerModal={props.toggleAnswerModal} showAnswerModal={props.showAddAnswerForm} collapseAnswers={props.collapseAnswers} loadMoreAnswers={props.loadMoreAnswers} loadMore={props.loadMore} reported={props.reported} reportA={props.reportA} incAHelp={props.incAHelp} incQHelp={props.incQHelp} key={q.question_id} q={q} /> )
-    })
+
+  if (props.questions.results !== undefined) {
+    if (props.searchVal) {
+      if (props.searchVal.length >= 3) {
+        props.questions.results.forEach(q => {
+          if (q.question_body.toLowerCase().split(' ').includes(props.searchVal)) {
+            questions.push(<Question toggleAnswerModal={props.toggleAnswerModal} showAnswerModal={props.showAddAnswerForm} collapseAnswers={props.collapseAnswers} loadMoreAnswers={props.loadMoreAnswers} loadMore={props.loadMore} reported={props.reported} reportA={props.reportA} incAHelp={props.incAHelp} incQHelp={props.incQHelp} key={q.question_id} q={q} /> )
+          }
+        })
+      } else {
+        props.questions.results.forEach((q, index) => {
+          questions.push(<Question toggleAnswerModal={props.toggleAnswerModal} showAnswerModal={props.showAddAnswerForm} collapseAnswers={props.collapseAnswers} loadMoreAnswers={props.loadMoreAnswers} loadMore={props.loadMore} reported={props.reported} reportA={props.reportA} incAHelp={props.incAHelp} incQHelp={props.incQHelp} key={q.question_id} q={q} /> )
+        })
+      }
+    } else {
+      props.questions.results.forEach((q, index) => {
+        questions.push(<Question toggleAnswerModal={props.toggleAnswerModal} showAnswerModal={props.showAddAnswerForm} collapseAnswers={props.collapseAnswers} loadMoreAnswers={props.loadMoreAnswers} loadMore={props.loadMore} reported={props.reported} reportA={props.reportA} incAHelp={props.incAHelp} incQHelp={props.incQHelp} key={q.question_id} q={q} /> )
+      })
+
+    }
   }
 
-  //on load, return up to 4 questions
+
+
+  // generate a list of the questions
+  // if(props.questions.results !== undefined) {
+  //   props.questions.results.forEach((q, index) => {
+  //     questions.push(<Question toggleAnswerModal={props.toggleAnswerModal} showAnswerModal={props.showAddAnswerForm} collapseAnswers={props.collapseAnswers} loadMoreAnswers={props.loadMoreAnswers} loadMore={props.loadMore} reported={props.reported} reportA={props.reportA} incAHelp={props.incAHelp} incQHelp={props.incQHelp} key={q.question_id} q={q} /> )
+  //   })
+  // }
 
   return (
 
     <div>
-      List of Questions
       {questions.slice(0, 4)}
     </div>
   )
