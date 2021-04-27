@@ -17,6 +17,7 @@ class ImgGallery extends React.Component {
 
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleZoom = this.toggleZoom.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
   }
 
   handleClick(e) {
@@ -82,6 +83,12 @@ class ImgGallery extends React.Component {
     })
   }
 
+  handleMouseMove(e) {
+    var element = document.getElementById('container')
+    element.scrollTop = element.scrollTop + e.movementY*2.5;
+    element.scrollLeft = element.scrollLeft + e.movementX*2.5;
+  }
+
   render() {
     var thumbnailsToRender = [];
     var upArrowStyle = 'hidden';
@@ -120,8 +127,8 @@ class ImgGallery extends React.Component {
               {this.state.expanded_view ?
                 this.state.zoomed ?
                   <div className='zoomed_modal'>
-                    <div className='image_container'>
-                      <img src={this.props.selected.photos[this.state.thumbnail_index].url} className='zoomed_theIMG' onClick={this.toggleZoom}/>
+                    <div id='container' className='image_container'>
+                      <img src={this.props.selected.photos[this.state.thumbnail_index].url} className='zoomed_theIMG' onClick={this.toggleZoom} onMouseMove={this.handleMouseMove}/>
                     </div>
                   </div>
                 :

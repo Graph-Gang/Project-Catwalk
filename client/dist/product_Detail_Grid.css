@@ -112,13 +112,14 @@
 .checkMark {
   background-repeat: no-repeat;
   object-fit: cover;
-
   overflow: hidden;
+
   border-radius: 50%;
   width: 1.5vw;
   height: 1.5vw;
+
   position: relative;
-  top: 3.5vh;
+  top: 2vw;
   left: 3.75vw;
 }
 
@@ -177,8 +178,6 @@
   align-items: center;
 
   overflow: hidden;
-  /* overflow-y: scroll;
-  overflow-x: hidden; */
   height: 81vh;
 }
 
@@ -293,10 +292,11 @@
   position: fixed;
   z-index: 1;
   left: 0;
+  right: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
+  bottom: 0;
+
+  overflow: hidden;
   background-color: white;
 }
 
@@ -346,14 +346,17 @@
 .zoomed_modal {
   z-index: 2;
   overflow: hidden;
-  background-color: white;
+  background-color: rgba(0,0,0,0.5);
 
   position: fixed;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .image_container {
@@ -373,6 +376,11 @@
 
 .zoomed_theIMG:hover {
   cursor: zoom-out;
+
+  -webkit-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scale(2.5);
   transform: scale(2.5);
 }
 
