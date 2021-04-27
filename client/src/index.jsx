@@ -403,7 +403,7 @@ search(event) {
         </div>
         <hr></hr>
         <div>
-          <RatingReview postReview={this.postReview} reviews={this.state.reviews} ratings={this.state.ratings}/>
+          <RatingReview product_id={this.state.product_id} postReview={this.postReview} reviews={this.state.reviews} ratings={this.state.ratings}/>
         </div>
       </div>
     )

@@ -10,6 +10,8 @@ class RatingReview extends React.Component {
     super(props);
     this.state = {
       reviews: this.props.reviews,
+      photos: [],
+      photoWarning: false,
       display: null,
       button: null,
       show: false,
@@ -17,10 +19,10 @@ class RatingReview extends React.Component {
       bigPhotoUrl: '',
       ratingValue: '',
       recomendValue: '',
-      summaryValue: 'Example: Best purchase ever!',
-      reviewValue: 'Why did you like the product or not?',
-      nicknameValue: 'Example: jackson11!',
-      emailValue: 'Example: jackson11@email.com',
+      summaryValue: '',
+      reviewValue: '',
+      nicknameValue: '',
+      emailValue: '',
       ratings: {
         product_id: '17067',
         ratings: { '2': '1', '3': '5', '4': '9', '5': '4' },
@@ -39,6 +41,21 @@ class RatingReview extends React.Component {
     this.post = this.post.bind(this);
     this.showPhoto = this.showPhoto.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleImage = this.handleImage.bind(this);
+  }
+
+  handleImage(event) {
+    if(this.state.photos.length < 5) {
+        this.setState({
+          photos: [...this.state.photos, URL.createObjectURL(event.target.files[0])]
+        })
+    } else {
+      if (!this.state.photoWarning) {
+        this.setState({
+          photoWarning: true
+        })
+      }
+    }
   }
 
   handleInputChange(e) {
@@ -64,17 +81,42 @@ class RatingReview extends React.Component {
   }
 
   post() {
-    this.props.postReview({
-      rating: this.state.ratingValue,
-      summary: this.state.summaryValue,
-      body: this.state.reviewValue,
-      recomend: this.state.recomendValue,
-      name: this.state.nicknameValue,
-      email: this.state.emailValue
-    })
-    this.setState({
-      show: !this.state.show
-    })
+    event.preventDefault();
+
+    let validEmail = false;
+    let validReview = false;
+    let validName = false;
+
+    if(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.state.emailValue)) {
+      validEmail = true;
+    }
+
+    if (/^(?!\s*$).+/.test(this.state.reviewValue)) {
+      validReview = true;
+    }
+
+    if (/^(?!\s*$).+/.test(this.state.nicknameValue)) {
+      validName = true;
+    }
+
+    if (validEmail && validReview && validName) {
+      this.props.postReview({
+        product_id: this.props.product_id,
+        rating: Number(this.state.ratingValue),
+        summary: this.state.summaryValue,
+        body: this.state.reviewValue,
+        recommend: this.state.recomendValue === 'true' ? true : false,
+        name: this.state.nicknameValue,
+        email: this.state.emailValue,
+        photos: this.state.photos,
+        characteristics: {"57226": 4}
+      })
+      this.setState({
+        show: !this.state.show
+      })
+    } else {
+      alert('You must complete all required fields indicated by the asterisk')
+    }
   }
 
   handleClick() {
@@ -135,16 +177,19 @@ class RatingReview extends React.Component {
           }
           <AddReview
           onChange={this.handleInputChange}
-            onClose={this.showAdd}
-            onSubmit={this.post}
-            show={this.state.show}
-            recomendValue={this.state.recomendValue}
-            ratingValue={this.state.ratingValue}
-            summaryValue={this.state.summaryValue}
-            reviewValue={this.state.reviewValue}
-            nicknameValue={this.state.nicknameValue}
-            emailValue={this.state.emailValue}
-            />
+          uploadImg={this.handleImage}
+          photos={this.state.photos}
+          photoWarn={this.state.photoWarn}
+          onClose={this.showAdd}
+          onSubmit={this.post}
+          show={this.state.show}
+          recomendValue={this.state.recomendValue}
+          ratingValue={this.state.ratingValue}
+          summaryValue={this.state.summaryValue}
+          reviewValue={this.state.reviewValue}
+          nicknameValue={this.state.nicknameValue}
+          emailValue={this.state.emailValue}
+          />
           <button onClick={this.showAdd}>Add Reviews</button>
         </div>
       </div>
