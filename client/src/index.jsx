@@ -24,6 +24,7 @@ class App extends React.Component {
       photos: [],
       photoWarning: false,
       showAddQuestionForm: false,
+      qCount: 2,
     }
 
     this.fetchAll = this.fetchAll.bind(this);
@@ -46,6 +47,7 @@ class App extends React.Component {
     this.toggleQuestionForm = this.toggleQuestionForm.bind(this);
     this.closeQuestionModal = this.closeQuestionModal.bind(this);
     this.submitQuestion = this.submitQuestion.bind(this);
+    this.moreQ = this.moreQ.bind(this)
   }
 
   fetchAll() {
@@ -366,9 +368,11 @@ closeQuestionModal() {
   })
 }
 
-//search questions in state
-search(event) {
-
+//add more questions
+moreQ(event) {
+  this.setState({
+    qCount: this.state.qCount + 2
+  })
 }
 
 
@@ -402,7 +406,7 @@ search(event) {
         </div>
         <hr></hr>
         <div onClick={this.props.tracker_QA}>
-          <QuestionsAnswers searchVal={this.state.search} submitQuestion={this.submitQuestion} showAddQuestionForm={this.state.showAddQuestionForm} showQuestionModal={this.toggleQuestionForm} closeQuestionModal={this.closeQuestionModal} photoWarn={this.state.photoWarning} closeAnswerModal={this.closeAnswerModal} uploadImg={this.handleImage} photos={this.state.photos} answerModalValues={this.answerModalValues} submitAnswer={this.submitAnswer} answerModalQ={this.state.answerModalQ} toggleAnswerModal={this.toggleAnswerModal} showAnswerModal={this.state.showAddAnswerForm} collapseAnswers={this.collapseAnswers} loadMoreAnswers={this.state.loadMoreAnswers} loadMore={this.loadMore} reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} product={this.state.product} products={this.state.products} questions={this.state.questions}/>
+          <QuestionsAnswers moreQ={this.moreQ} qCount={this.state.qCount} searchVal={this.state.search} submitQuestion={this.submitQuestion} showAddQuestionForm={this.state.showAddQuestionForm} showQuestionModal={this.toggleQuestionForm} closeQuestionModal={this.closeQuestionModal} photoWarn={this.state.photoWarning} closeAnswerModal={this.closeAnswerModal} uploadImg={this.handleImage} photos={this.state.photos} answerModalValues={this.answerModalValues} submitAnswer={this.submitAnswer} answerModalQ={this.state.answerModalQ} toggleAnswerModal={this.toggleAnswerModal} showAnswerModal={this.state.showAddAnswerForm} collapseAnswers={this.collapseAnswers} loadMoreAnswers={this.state.loadMoreAnswers} loadMore={this.loadMore} reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} product={this.state.product} products={this.state.products} questions={this.state.questions}/>
         </div>
         <hr></hr>
         <div onClick={this.props.tracker_RR} id='Review_Section'>
