@@ -195,8 +195,10 @@ app.post('/qa/questions', (req, res) => {
   })
 })
 
-app.get('/reviews/:product_id', function (req, res) {
+app.get('/reviews/:product_id&:sort', function (req, res) {
+  console.log(req.params)
   let id = req.params.product_id;
+  let sort = req.params.sort;
   let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/`
   let options = {
     headers: {
@@ -205,6 +207,7 @@ app.get('/reviews/:product_id', function (req, res) {
     },
     params: {
       product_id: id,
+      sort: sort,
       count: 6,
       page: 2
     }
@@ -238,7 +241,7 @@ app.get('/reviews/meta/:product_id', function (req, res) {
 
   axios.get(url, options)
     .then((results) => {
-      console.log('ratings results --->', results.data);
+      // console.log('ratings results --->', results.data);
       res.status(200);
       res.send(results.data);
     })

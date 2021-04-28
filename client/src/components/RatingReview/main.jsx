@@ -153,6 +153,14 @@ class RatingReview extends React.Component {
     return(
       <div>
         <h2>Ratings and Reviews</h2>
+        <form>
+          Sort reviews by
+          <select>
+            <option value="relevant">Relevant</option>
+            <option value="helpful">Helpful</option>
+            <option vaule="newest">Newest</option>
+          </select>
+        </form>
         <div className="ratingReviewGrid">
           {
             this.state.ratings ?
