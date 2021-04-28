@@ -25,38 +25,38 @@ const AddAnswer = (props) => {
         <h3>Submit your Answer</h3>
         <h4>{props.product.name} : {props.answerModalQ.question_body}</h4>
         <form>
-          <div>
+          <div className='modal-item'>
             <label>
               Your Answer*
-              <textarea onChange={props.answerModalValues} required type='text' name='answerBody' maxLength='1000'/>
+              <textarea className='form-field textarea' placeholder='Enter your answer' onChange={props.answerModalValues} required type='text' name='answerBody' maxLength='1000'/>
             </label>
 
           </div>
-          <div>
+          <div className='modal-item'>
             <label>
               What is your nickname?*
-              <input onChange={props.answerModalValues} required type='text' placeholder='Example jack543!' name='answerName' ></input>
-              <p>For privacy reasons, do not use your full name or email address</p>
+              <input className='form-field' onChange={props.answerModalValues} required type='text' placeholder='Example jack543!' name='answerName' ></input>
+              <p className='help-text'>For privacy reasons, do not use your full name or email address</p>
             </label>
 
           </div>
-          <div>
+          <div className='modal-item'>
             <label>
               Your email*
-               <input onChange={props.answerModalValues} required type='text' placeholder='Example jack@email.com' name='answerEmail' ></input>
-               <p>For authentication reasons, you will not be emailed</p>
+               <input className='form-field' onChange={props.answerModalValues} required type='text' placeholder='Example jack@email.com' name='answerEmail' ></input>
+               <p className='help-text'>For authentication reasons, you will not be emailed</p>
             </label>
 
           </div>
           <div>
-            <label>
+            <label className='modal-item'>
               Upload your photos
+              </label>
               <input onChange={props.uploadImg} type='file' accept='image/*' multiple={false} name='answerPhotos'></input>
               <div>{photo} </div>
               <div>{moreThanFiveWarning}</div>
-            </label>
           </div>
-          <button onClick={()=> {props.submitAnswer(props.answerModalQ.question_id)}}>Submit</button>
+          <button className='button1' onClick={()=> {props.submitAnswer(props.answerModalQ.question_id)}}>Submit</button>
         </form>
         </div>
       </div>

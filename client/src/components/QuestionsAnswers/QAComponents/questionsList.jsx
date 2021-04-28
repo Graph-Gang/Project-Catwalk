@@ -38,10 +38,12 @@ const QuestionList = (props) => {
   //   })
   // }
 
+
+
   return (
 
     <div>
-      {questions.slice(0, 4)}
+      {questions.slice(0, props.qCount)}
     </div>
   )
 }
