@@ -11,6 +11,7 @@ class RatingReview extends React.Component {
     this.state = {
       reviews: this.props.reviews,
       sort: 'relevant',
+      filter: [],
       photos: [],
       photoWarning: false,
       display: null,
@@ -179,6 +180,7 @@ class RatingReview extends React.Component {
           {
             this.state.display ?
             <List
+            filter={this.state.filter}
             bigPhoto={this.state.bigPhoto}
             bigPhotoUrl={this.state.bigPhotoUrl}
             onClose={this.showPhoto}
