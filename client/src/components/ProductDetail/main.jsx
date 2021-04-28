@@ -12,8 +12,11 @@ class ProductDetail extends React.Component {
     super(props);
     this.state = {
       selected: {},
+      search_id: 0,
     }
     this.handleStyleSelect = this.handleStyleSelect.bind(this);
+    this.handleSearchIdChange = this.handleSearchIdChange.bind(this);
+    this.handleSearchClick = this.handleSearchClick.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -30,9 +33,27 @@ class ProductDetail extends React.Component {
     })
   }
 
+  handleSearchIdChange(e) {
+    this.setState({
+      search_id: Number(e.target.value)
+    })
+  }
+
+  handleSearchClick(e) {
+    e.preventDefault();
+    this.props.search(this.state.search_id);
+  }
+
   render() {
     return (
       <div>
+        <div className='top_bar'>
+          <a className='logo' href=''>Logo</a>
+          <div>
+            <input className='search_bar' type='text' onChange={this.handleSearchIdChange}></input>
+            <img src='search_bar.png' className='search_button' onClick={this.handleSearchClick}></img>
+          </div>
+        </div>
         <div className='pd_grid'>
           <div className='pd_item1'>
             <ImgGallery selected={this.state.selected}/>
