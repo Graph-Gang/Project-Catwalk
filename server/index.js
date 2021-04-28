@@ -251,31 +251,24 @@ app.get('/reviews/meta/:product_id', function (req, res) {
 
 app.post('/reviews/', function (req, res) {
   console.log(req.body);
-  res.sendStatus(201);
-  res.end();
-  // let id = req.params.product_id;
-  // let url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/meta/`
-  // let options = {
-  //   headers: {
-  //     'User-Agent': 'request',
-  //     'Authorization': config.TOKEN
-  //   },
-  //   params: {
-  //     product_id: id
-  //   }
-  // }
+  // res.sendStatus(201);
+  // res.end();
 
-  // axios.get(url, options)
-  //   .then((results) => {
-  //     // console.log('ratings results --->', results.data);
-  //     res.status(200);
-  //     res.send(results.data);
-  //   })
-  //   .catch((err) => {
-  //     // console.log('ratings err --->', err);
-  //     res.status(404);
-  //     res.send(err);
-  //   })
+  axios({
+    method: 'post',
+    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp/reviews/',
+    headers: {'Authorization': config.TOKEN},
+    data: req.body
+  })
+  .then((result) => {
+    console.log('ratings results --->', result.data);
+    res.status(201);
+    res.end()
+  })
+  .catch(err => {
+    console.log('ratings err --->', err);
+  })
+
 })
 
 let port = 3000;

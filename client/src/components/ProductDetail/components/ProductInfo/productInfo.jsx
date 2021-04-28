@@ -6,7 +6,7 @@ const ProductInfo = (props) => (
     <div className='star_section'>
       <StarRating />
       <div className='readReviews'>
-        <a href=''>
+        <a href='#Review_Section'>
           Read all reviews
         </a>
       </div>

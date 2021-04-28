@@ -6,8 +6,8 @@ import QuestionsAnswers from './components/QuestionsAnswers/QuestionsAnswers.jsx
 import RatingReview from './components/RatingReview/main.jsx';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       products: [],
       product: {},
@@ -398,7 +398,7 @@ moreQ(event) {
   render() {
     return(
       <div>
-        <div>
+        <div onClick={this.props.tracker_PD}>
           <ProductDetail product={this.state.product} product_styles={this.state.product_styles}/>
         </div>
         <hr></hr>
@@ -406,12 +406,58 @@ moreQ(event) {
           <QuestionsAnswers moreQ={this.moreQ} qCount={this.state.qCount} searchVal={this.state.search} submitQuestion={this.submitQuestion} showAddQuestionForm={this.state.showAddQuestionForm} showQuestionModal={this.toggleQuestionForm} closeQuestionModal={this.closeQuestionModal} photoWarn={this.state.photoWarning} closeAnswerModal={this.closeAnswerModal} uploadImg={this.handleImage} photos={this.state.photos} answerModalValues={this.answerModalValues} submitAnswer={this.submitAnswer} answerModalQ={this.state.answerModalQ} toggleAnswerModal={this.toggleAnswerModal} showAnswerModal={this.state.showAddAnswerForm} collapseAnswers={this.collapseAnswers} loadMoreAnswers={this.state.loadMoreAnswers} loadMore={this.loadMore} reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} product={this.state.product} products={this.state.products} questions={this.state.questions}/>
         </div>
         <hr></hr>
-        <div>
-          <RatingReview postReview={this.postReview} reviews={this.state.reviews} ratings={this.state.ratings}/>
+        <div onClick={this.props.tracker_RR} id='Review_Section'>
+          <RatingReview product_id={this.state.product_id} postReview={this.postReview} reviews={this.state.reviews} ratings={this.state.ratings}/>
         </div>
       </div>
     )
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+class ClickTracker extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      record: {}
+    }
+    this.handleClickPD = this.handleClickPD.bind(this);
+    this.handleClickQA = this.handleClickQA.bind(this);
+    this.handleClickRR = this.handleClickRR.bind(this);
+  }
+
+  handleClickPD(e) {
+    // console.log(new Date(Date.now()));
+    this.state.record[Date.now().toString()] = [e.target, 'Product_Detail']
+    this.setState({
+      record: this.state.record
+    })
+  }
+
+  handleClickQA(e) {
+    this.state.record[Date.now().toString()] = [e.target, 'Questions_Answers']
+    this.setState({
+      record: this.state.record
+    })
+  }
+
+  handleClickRR(e) {
+    this.state.record[Date.now().toString()] = [e.target, 'Ratings_Reviews']
+    this.setState({
+      record: this.state.record
+    })
+  }
+
+  render() {
+    return (
+      this.props.render(this.handleClickPD, this.handleClickQA, this.handleClickRR)
+    )
+  }
+}
+
+
+ReactDOM.render(
+  <ClickTracker render={(fn1, fn2, fn3) =>
+    <App tracker_PD={fn1} tracker_QA={fn2} tracker_RR={fn3}/>
+  }/>,
+  document.getElementById('app')
+);
