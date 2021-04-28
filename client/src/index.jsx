@@ -403,17 +403,12 @@ search(event) {
         </div>
         <hr></hr>
         <div onClick={this.props.tracker_RR} id='Review_Section'>
-          <RatingReview postReview={this.postReview} reviews={this.state.reviews} ratings={this.state.ratings}/>
+          <RatingReview product_id={this.state.product_id} postReview={this.postReview} reviews={this.state.reviews} ratings={this.state.ratings}/>
         </div>
       </div>
     )
   }
 }
-
-
-
-
-
 
 class ClickTracker extends React.Component {
   constructor(props) {
@@ -454,9 +449,6 @@ class ClickTracker extends React.Component {
     )
   }
 }
-
-
-
 
 
 ReactDOM.render(
