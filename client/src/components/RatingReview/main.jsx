@@ -10,6 +10,7 @@ class RatingReview extends React.Component {
     super(props);
     this.state = {
       reviews: this.props.reviews,
+      sort: 'relevant',
       photos: [],
       photoWarning: false,
       display: null,
@@ -42,6 +43,7 @@ class RatingReview extends React.Component {
     this.showPhoto = this.showPhoto.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleImage = this.handleImage.bind(this);
+    this.handleSortChange = this.handleSortChange.bind(this);
   }
 
   handleImage(event) {
@@ -65,6 +67,13 @@ class RatingReview extends React.Component {
     this.setState({
       [name]: value
     })
+  }
+
+  handleSortChange(e) {
+    this.setState({
+      sort: e.target.value
+    })
+    this.props.fetch(this.props.product_id, e.target.value)
   }
 
   showPhoto(e) {
@@ -153,6 +162,14 @@ class RatingReview extends React.Component {
     return(
       <div>
         <h2>Ratings and Reviews</h2>
+        <form>
+          Sort reviews by
+          <select name="sort" value={this.state.sort} onChange={this.handleSortChange}>
+            <option value="relevant">Relevant</option>
+            <option value="helpful">Helpful</option>
+            <option vaule="newest">newest</option>
+          </select>
+        </form>
         <div className="ratingReviewGrid">
           {
             this.state.ratings ?

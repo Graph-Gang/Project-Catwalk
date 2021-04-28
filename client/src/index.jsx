@@ -104,8 +104,11 @@ class App extends React.Component {
     }
 
 
-  fetchReviews(id) {
-    axios.get('/reviews/' + id)
+  fetchReviews(id, sort) {
+    if (!sort) {
+      sort = 'relevant';
+    }
+    axios.get(`/reviews/${id}&${sort}`)
       .then((results) => {
         console.log('Success getting all reviews from API');
         this.setState({
@@ -407,7 +410,7 @@ moreQ(event) {
         </div>
         <hr></hr>
         <div onClick={this.props.tracker_RR} id='Review_Section'>
-          <RatingReview product_id={this.state.product_id} postReview={this.postReview} reviews={this.state.reviews} ratings={this.state.ratings}/>
+          <RatingReview fetch={this.fetchReviews} product_id={this.state.product_id} postReview={this.postReview} reviews={this.state.reviews} ratings={this.state.ratings}/>
         </div>
       </div>
     )
