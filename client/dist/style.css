@@ -29,9 +29,33 @@
   padding: 20px;
 }
 
+.modal-item{
+  padding: 20px;
+}
+
+.help-text {
+  margin-top: 3px;
+  font-size: 12px;
+}
+
+.form-field {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  font-size: 1rem;
+  border-bottom: 2px solid black;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+}
+
+
 .container {
   display: grid;
   grid-template-columns: 15% 70% 15%;
+  height: 75vh;
+  overflow-y: scroll;
 }
 
 .item-a {
@@ -75,6 +99,7 @@
   background-color: #fff;
   border: black solid 1px;
   padding: 10px;
+  margin: 10px;
   font-weight: bold;
   font-size: 18px;
 
@@ -88,6 +113,32 @@
   text-align: left;
   width: 175px;
 }
+
+.button1 {
+  display:inline-block;
+  padding:0.35em 1.2em;
+  border:0.1em solid black;
+  margin:4px 0.3em 0.3em 0;
+  border-radius:0.12em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-family: sans-serif;
+  font-weight:300;
+  color:black;
+  text-align:center;
+  transition: all 0.2s;
+  }
+
+.button1:hover{
+  color:#000000;
+  background-color: gray;
+  }
+@media all and (max-width:30em){
+.button1{
+  display:block;
+  margin:0.4em auto;
+  }
+  }
 
 .question {
   font-size: 18px;
@@ -115,8 +166,11 @@
 }
 
 .textarea {
-  width: 300px;
-  height: 200px;
+  width: 100%;
+}
+
+.textarea::placeholder {
+  font-family: sans-serif;
 }
 
 .title {
