@@ -12,7 +12,7 @@ class ProductDetail extends React.Component {
     super(props);
     this.state = {
       selected: {},
-      search_id: 0,
+      search_id: 17067,
     }
     this.handleStyleSelect = this.handleStyleSelect.bind(this);
     this.handleSearchIdChange = this.handleSearchIdChange.bind(this);
@@ -20,10 +20,12 @@ class ProductDetail extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.product_styles !== prevProps.product_styles) {
-      this.setState({
-        selected: this.props.product_styles[0],
-      })
+    for (var i = 0; i < this.props.product_styles.length; i++) {
+      if (this.props.product_styles[i] !== prevProps.product_styles[i]) {
+        this.setState({
+          selected: this.props.product_styles[0],
+        })
+      }
     }
   }
 

@@ -12,12 +12,14 @@ class StyleSelector extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.product_styles !== prevProps.product_styles) {
-      this.setState({
-        selected: this.props.product_styles[0],
-        price: this.props.product_styles[0].original_price,
-        sale_price: this.props.product_styles[0].sale_price,
-      })
+    for (var i = 0; i < this.props.product_styles.length; i++) {
+      if (this.props.product_styles[i] !== prevProps.product_styles[i]) {
+        this.setState({
+          selected: this.props.product_styles[0],
+          price: this.props.product_styles[0].original_price,
+          sale_price: this.props.product_styles[0].sale_price,
+        })
+      }
     }
   }
 
