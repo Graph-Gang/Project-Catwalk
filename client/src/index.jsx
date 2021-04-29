@@ -30,6 +30,7 @@ class App extends React.Component {
     this.fetchAll = this.fetchAll.bind(this);
     this.fetchOne = this.fetchOne.bind(this);
     this.fetchProductStyle = this.fetchProductStyle.bind(this);
+    this.searchID = this.searchID.bind(this);
     this.fetchQuestions = this.fetchQuestions.bind(this);
     this.fetchReviews = this.fetchReviews.bind(this);
     this.postReview = this.postReview.bind(this);
@@ -87,6 +88,18 @@ class App extends React.Component {
       .catch((err) => {
         console.log('Error getting one product style from API');
       })
+  }
+
+  searchID(id) {
+    this.fetchOne(id);
+    this.fetchProductStyle(id);
+    this.fetchQuestions(id);
+    this.fetchReviews(id);
+    this.fetchRatings(id);
+
+    this.setState({
+      product_id: id
+    })
   }
 
   //get questions for a specific product
@@ -402,7 +415,7 @@ moreQ(event) {
     return(
       <div>
         <div onClick={this.props.tracker_PD}>
-          <ProductDetail product={this.state.product} product_styles={this.state.product_styles}/>
+          <ProductDetail product={this.state.product} product_styles={this.state.product_styles} search={this.searchID}/>
         </div>
         <hr></hr>
         <div onClick={this.props.tracker_QA}>
