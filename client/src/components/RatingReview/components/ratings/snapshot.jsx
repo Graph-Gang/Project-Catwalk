@@ -46,6 +46,7 @@ const Snapshot = (props) => {
         <span onClick={() => props.onClick(1)}>1 stars</span>
         <input onClick={() => props.onClick(1)} type="range" disabled value={((props.ratings.ratings['1'] || 0) / rate.reviews) * 100}></input>
       </div>
+      {props.filter.length ? <button onClick={props.removeFilter}>Remove all filters</button> : null}
       <div>
         <Characteristics characteristics={props.ratings.characteristics}/>
       </div>
