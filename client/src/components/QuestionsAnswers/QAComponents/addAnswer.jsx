@@ -21,7 +21,7 @@ const AddAnswer = (props) => {
     return (
       <div className='answerModal'>
         <div className='answerModalContent'>
-          <div className='right' onClick={props.closeAnswerModal}>X</div>
+          <div className='rightX' onClick={props.closeAnswerModal}>X</div>
         <h3>Submit your Answer</h3>
         <h4>{props.product.name} : {props.answerModalQ.question_body}</h4>
         <form>

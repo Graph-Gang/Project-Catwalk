@@ -161,7 +161,7 @@
   padding-left: 10px;
 }
 
-.right {
+.rightX {
   float: right;
 }
 
@@ -176,4 +176,9 @@
 .title {
   font-weight: lighter;
   font-size: 18px;
+}
+
+mark {
+  background-color: yellow;
+  color: black;
 }
