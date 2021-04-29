@@ -20,7 +20,6 @@ const QuestionList = (props) => {
            let qEnd = x.slice(index + 1)
            let match = props.searchVal
 
-           console.log(qStart)
 
 
           // let search = new RegExp(props.searchVal, 'gi')
