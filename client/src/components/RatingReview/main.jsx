@@ -45,6 +45,7 @@ class RatingReview extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleImage = this.handleImage.bind(this);
     this.handleSortChange = this.handleSortChange.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
   }
 
   handleImage(event) {
@@ -62,11 +63,21 @@ class RatingReview extends React.Component {
   }
 
   handleInputChange(e) {
+    console.log(e.target)
     const target = e.target;
     const name = target.name;
     const value = target.value;
     this.setState({
       [name]: value
+    })
+  }
+
+  handleFilterChange(e) {
+    console.log(e)
+    let filter = this.state.filter;
+    filter.push(e);
+    this.setState({
+      filter: filter
     })
   }
 
@@ -174,7 +185,7 @@ class RatingReview extends React.Component {
         <div className="ratingReviewGrid">
           {
             this.state.ratings ?
-            <Snapshot StarRating={StarRating} ratings={this.state.ratings}/> :
+            <Snapshot onClick={this.handleFilterChange} StarRating={StarRating} ratings={this.state.ratings}/> :
             null
           }
           {

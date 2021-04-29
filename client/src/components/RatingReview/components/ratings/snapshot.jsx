@@ -27,24 +27,24 @@ const Snapshot = (props) => {
         <div>{recommended}% of reviews recommend this product</div>
       </div>
       <div>
-        <span>5 stars</span>
-        <input type="range" disabled value={((props.ratings.ratings['5'] || 0) / rate.reviews) * 100}></input>
+        <span onClick={() => props.onClick(5)}>5 stars</span>
+        <input onClick={() => props.onClick(5)} type="range" disabled value={((props.ratings.ratings['5'] || 0) / rate.reviews) * 100}></input>
       </div>
       <div>
-        <span>4 stars</span>
-        <input type="range" disabled value={((props.ratings.ratings['4'] || 0) / rate.reviews) * 100}></input>
+        <span onClick={() => props.onClick(4)}>4 stars</span>
+        <input onClick={() => props.onClick(4)} type="range" disabled value={((props.ratings.ratings['4'] || 0) / rate.reviews) * 100}></input>
       </div>
       <div>
-        <span>3 stars</span>
-        <input type="range" disabled value={((props.ratings.ratings['3'] || 0) / rate.reviews) * 100}></input>
+        <span onClick={() => props.onClick(3)}>3 stars</span>
+        <input onClick={() => props.onClick(3)} type="range" disabled value={((props.ratings.ratings['3'] || 0) / rate.reviews) * 100}></input>
       </div>
       <div>
-        <span>2 stars</span>
-        <input type="range" disabled value={((props.ratings.ratings['2'] || 0) / rate.reviews) * 100}></input>
+        <span onClick={() => props.onClick(2)}>2 stars</span>
+        <input onClick={() => props.onClick(2)} type="range" disabled value={((props.ratings.ratings['2'] || 0) / rate.reviews) * 100}></input>
       </div>
       <div>
-        <span>1 stars</span>
-        <input type="range" disabled value={((props.ratings.ratings['1'] || 0) / rate.reviews) * 100}></input>
+        <span onClick={() => props.onClick(1)}>1 stars</span>
+        <input onClick={() => props.onClick(1)} type="range" disabled value={((props.ratings.ratings['1'] || 0) / rate.reviews) * 100}></input>
       </div>
       <div>
         <Characteristics characteristics={props.ratings.characteristics}/>
