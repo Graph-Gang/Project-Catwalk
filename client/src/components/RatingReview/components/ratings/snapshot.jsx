@@ -17,7 +17,7 @@ const Snapshot = (props) => {
   let recommended = Math.floor((props.ratings.recommended.true / rate.reviews) * 100);
 
   return (
-    <div>
+    <div id="rating-snapshot">
       <div>
         <span>{rounded}</span>
         <props.StarRating rating={rate.average}/>
@@ -26,25 +26,27 @@ const Snapshot = (props) => {
       <div>
         <div>{recommended}% of reviews recommend this product</div>
       </div>
-      <div>
-        <span onClick={() => props.onClick(5)}>5 stars</span>
-        <input onClick={() => props.onClick(5)} type="range" disabled value={((props.ratings.ratings['5'] || 0) / rate.reviews) * 100}></input>
-      </div>
-      <div>
-        <span onClick={() => props.onClick(4)}>4 stars</span>
-        <input onClick={() => props.onClick(4)} type="range" disabled value={((props.ratings.ratings['4'] || 0) / rate.reviews) * 100}></input>
-      </div>
-      <div>
-        <span onClick={() => props.onClick(3)}>3 stars</span>
-        <input onClick={() => props.onClick(3)} type="range" disabled value={((props.ratings.ratings['3'] || 0) / rate.reviews) * 100}></input>
-      </div>
-      <div>
-        <span onClick={() => props.onClick(2)}>2 stars</span>
-        <input onClick={() => props.onClick(2)} type="range" disabled value={((props.ratings.ratings['2'] || 0) / rate.reviews) * 100}></input>
-      </div>
-      <div>
-        <span onClick={() => props.onClick(1)}>1 stars</span>
-        <input onClick={() => props.onClick(1)} type="range" disabled value={((props.ratings.ratings['1'] || 0) / rate.reviews) * 100}></input>
+      <div id="snapshot-filter-container">
+        <div>
+          <span onClick={() => props.onClick(5)}>5 stars</span>
+          <progress onClick={() => props.onClick(5)} min="0" max="100" value={((props.ratings.ratings['5'] || 0) / rate.reviews) * 100}></progress>
+        </div>
+        <div>
+          <span onClick={() => props.onClick(4)}>4 stars</span>
+          <progress onClick={() => props.onClick(4)} min="0" max="100" value={((props.ratings.ratings['4'] || 0) / rate.reviews) * 100}></progress>
+        </div>
+        <div>
+          <span onClick={() => props.onClick(3)}>3 stars</span>
+          <progress onClick={() => props.onClick(3)} min="0" max="100" value={((props.ratings.ratings['3'] || 0) / rate.reviews) * 100}></progress>
+        </div>
+        <div>
+          <span onClick={() => props.onClick(2)}>2 stars</span>
+          <progress onClick={() => props.onClick(2)} min="0" max="100" value={((props.ratings.ratings['2'] || 0) / rate.reviews) * 100}></progress>
+        </div>
+        <div>
+          <span onClick={() => props.onClick(1)}>1 stars</span>
+          <progress onClick={() => props.onClick(1)} min="0" max="100" value={((props.ratings.ratings['1'] || 0) / rate.reviews) * 100}></progress>
+        </div>
       </div>
       {props.filter.length ? <button onClick={props.removeFilter}>Remove all filters</button> : null}
       <div>

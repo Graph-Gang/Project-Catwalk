@@ -208,8 +208,8 @@ app.get('/reviews/:product_id&:sort', function (req, res) {
     params: {
       product_id: id,
       sort: sort,
-      count: 6,
-      page: 2
+      count: 16,
+      page: 1
     }
   }
 
