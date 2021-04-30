@@ -13,7 +13,7 @@ const Answer = (props) => {
   //format date
   let date = DateTime.fromISO(props.a.date).toLocaleString(DateTime.DATE_FULL);
 
-  //create image tages for photos
+  //create image tags for photos
   let photos = []
   props.a.photos.forEach((img, index) => {
     photos.push(<img key={index} src={img} width='150' height='100' />)

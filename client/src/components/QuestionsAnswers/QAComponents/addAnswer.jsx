@@ -1,4 +1,5 @@
 import React from 'react';
+//import Submit from './submit.jsx'
 
 
 const AddAnswer = (props) => {
@@ -17,11 +18,14 @@ const AddAnswer = (props) => {
     moreThanFiveWarning = 'You may only upload five images'
   }
 
+
+
+
   if (props.showAnswerModal){
     return (
       <div className='answerModal'>
         <div className='answerModalContent'>
-          <div className='right' onClick={props.closeAnswerModal}>X</div>
+          <div className='rightX' onClick={props.closeAnswerModal}>X</div>
         <h3>Submit your Answer</h3>
         <h4>{props.product.name} : {props.answerModalQ.question_body}</h4>
         <form>

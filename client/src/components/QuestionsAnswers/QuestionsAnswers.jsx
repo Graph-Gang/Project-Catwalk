@@ -9,6 +9,31 @@ import AddQuestion from './QAComponents/addQuestion.jsx';
 const QuestionsAnswers = (props) => {
 
 
+  let buttonText = 'More Questions'
+
+  if (props.questions.results) {
+    if (props.qCount >= props.questions.results.length){
+      buttonText = 'Collapse Questions' ;
+      return (
+        <div className='container'>
+        <div className='item-a'>
+        <h4 className='title'>Questions & Answers </h4>
+        <Search answerModalValues={props.answerModalValues}/>
+        <QuestionList moreQ={props.moreQ} qCount={props.qCount} searchVal={props.searchVal} toggleAnswerModal={props.toggleAnswerModal} collapseAnswers={props.collapseAnswers} loadMoreAnswers={props.loadMoreAnswers} loadMore={props.loadMore} reported={props.reported} reportA={props.reportA} incAHelp={props.incAHelp} incQHelp={props.incQHelp} questions={props.questions}/>
+        <AddAnswer submitCss={props.submitCss} photoWarn={props.photoWarn} closeAnswerModal={props.closeAnswerModal} uploadImg={props.uploadImg} photos={props.photos} answerModalValues={props.answerModalValues} submitAnswer={props.submitAnswer} product={props.product} answerModalQ={props.answerModalQ} showAnswerModal={props.showAnswerModal} />
+        <AddQuestion answerModalValues={props.answerModalValues} submitQuestion={props.submitQuestion} product={props.product} closeQuestionModal={props.closeQuestionModal} showAddQuestionForm={props.showAddQuestionForm} />
+        <button className='button-b' onClick={props.resetQCount}>{buttonText}</button>
+        <button className='button-b' onClick={props.showQuestionModal}>Add a Question +</button>
+        </div>
+      </div>
+      )
+
+
+    }
+
+  }
+
+
   return (
     <div className='container'>
       <div className='item-a'>
@@ -17,7 +42,7 @@ const QuestionsAnswers = (props) => {
       <QuestionList moreQ={props.moreQ} qCount={props.qCount} searchVal={props.searchVal} toggleAnswerModal={props.toggleAnswerModal} collapseAnswers={props.collapseAnswers} loadMoreAnswers={props.loadMoreAnswers} loadMore={props.loadMore} reported={props.reported} reportA={props.reportA} incAHelp={props.incAHelp} incQHelp={props.incQHelp} questions={props.questions}/>
       <AddAnswer photoWarn={props.photoWarn} closeAnswerModal={props.closeAnswerModal} uploadImg={props.uploadImg} photos={props.photos} answerModalValues={props.answerModalValues} submitAnswer={props.submitAnswer} product={props.product} answerModalQ={props.answerModalQ} showAnswerModal={props.showAnswerModal} />
       <AddQuestion answerModalValues={props.answerModalValues} submitQuestion={props.submitQuestion} product={props.product} closeQuestionModal={props.closeQuestionModal} showAddQuestionForm={props.showAddQuestionForm} />
-      <button className='button-b' onClick={props.moreQ}>More Questions</button>
+      <button className='button-b' onClick={props.moreQ}>{buttonText}</button>
       <button className='button-b' onClick={props.showQuestionModal}>Add a Question +</button>
       </div>
     </div>
