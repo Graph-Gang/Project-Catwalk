@@ -5,7 +5,7 @@ import Review from './review.jsx';
 const List = (props) => {
   if (props.filter.length) {
     return(
-      <div>
+      <div id="review-list-container">
         <ul>
           {props.reviews.map((review, index) => {
             if (props.filter.includes(review.rating)) {
@@ -26,7 +26,7 @@ const List = (props) => {
     )
   } else {
     return(
-      <div>
+      <div id="review-list-container">
       <ul>
         {props.reviews.map((review, index) => {
           return <Review

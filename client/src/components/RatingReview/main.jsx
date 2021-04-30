@@ -25,17 +25,7 @@ class RatingReview extends React.Component {
       reviewValue: '',
       nicknameValue: '',
       emailValue: '',
-      ratings: {
-        product_id: '17067',
-        ratings: { '2': '1', '3': '5', '4': '9', '5': '4' },
-        recommended: { false: '13', true: '6' },
-        characteristics: {
-          Fit: { id: 57222, value: '3.1818181818181818' },
-          Length: { id: 57223, value: '3.6250000000000000' },
-          Comfort: { id: 57224, value: '4.2500000000000000' },
-          Quality: { id: 57225, value: '3.7272727272727273' }
-        }
-      }
+      ratings: null
     }
     this.handleClick = this.handleClick.bind(this);
     this.renderButton = this.renderButton.bind(this);
@@ -166,6 +156,11 @@ class RatingReview extends React.Component {
         // ratings: this.props.ratings
       })
     }
+    if (this.props.ratings !== prevProps.ratings) {
+      this.setState({
+        ratings: this.props.ratings
+      })
+    }
     this.renderButton();
   }
 
@@ -209,7 +204,7 @@ class RatingReview extends React.Component {
           }
           {
             this.state.button ?
-            <button onClick={this.handleClick}>More Reviews</button> :
+            <button className="more-reviews-button" onClick={this.handleClick}>More Reviews</button> :
             this.renderButton()
           }
           <AddReview
@@ -227,7 +222,7 @@ class RatingReview extends React.Component {
           nicknameValue={this.state.nicknameValue}
           emailValue={this.state.emailValue}
           />
-          <button onClick={this.showAdd}>Add Reviews</button>
+          <button className="add-review-button" onClick={this.showAdd}>Add Reviews</button>
         </div>
       </div>
     )
