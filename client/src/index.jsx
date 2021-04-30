@@ -25,6 +25,7 @@ class App extends React.Component {
       photoWarning: false,
       showAddQuestionForm: false,
       qCount: 2,
+      submit: false,
     }
 
     this.fetchAll = this.fetchAll.bind(this);
@@ -49,6 +50,7 @@ class App extends React.Component {
     this.closeQuestionModal = this.closeQuestionModal.bind(this);
     this.submitQuestion = this.submitQuestion.bind(this);
     this.moreQ = this.moreQ.bind(this)
+    this.resetQCount = this.resetQCount.bind(this);
   }
 
   fetchAll() {
@@ -230,7 +232,8 @@ collapseAnswers(id) {
 toggleAnswerModal(q) {
   this.setState({
     showAddAnswerForm: !this.state.showAddAnswerForm,
-    answerModalQ: q
+    answerModalQ: q,
+   // submit: false
   })
 }
 
@@ -280,6 +283,7 @@ submitAnswer(id) {
       })
       .then((result)=> {
         this.setState({
+          //submit: true,
           showAddAnswerForm: !this.state.showAddAnswerForm
         })
         this.fetchQuestions(this.state.product_id);
@@ -388,6 +392,14 @@ moreQ(event) {
   })
 }
 
+//reset qCount
+resetQCount() {
+  this.setState({
+    qCount: 2
+  })
+}
+
+
 
   fetchRatings(id) {
     axios.get('/reviews/meta/' + id)
@@ -419,7 +431,7 @@ moreQ(event) {
         </div>
         <hr></hr>
         <div onClick={this.props.tracker_QA}>
-          <QuestionsAnswers moreQ={this.moreQ} qCount={this.state.qCount} searchVal={this.state.search} submitQuestion={this.submitQuestion} showAddQuestionForm={this.state.showAddQuestionForm} showQuestionModal={this.toggleQuestionForm} closeQuestionModal={this.closeQuestionModal} photoWarn={this.state.photoWarning} closeAnswerModal={this.closeAnswerModal} uploadImg={this.handleImage} photos={this.state.photos} answerModalValues={this.answerModalValues} submitAnswer={this.submitAnswer} answerModalQ={this.state.answerModalQ} toggleAnswerModal={this.toggleAnswerModal} showAnswerModal={this.state.showAddAnswerForm} collapseAnswers={this.collapseAnswers} loadMoreAnswers={this.state.loadMoreAnswers} loadMore={this.loadMore} reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} product={this.state.product} products={this.state.products} questions={this.state.questions}/>
+          <QuestionsAnswers submitCss={this.state.submit} resetQCount={this.resetQCount} moreQ={this.moreQ} qCount={this.state.qCount} searchVal={this.state.search} submitQuestion={this.submitQuestion} showAddQuestionForm={this.state.showAddQuestionForm} showQuestionModal={this.toggleQuestionForm} closeQuestionModal={this.closeQuestionModal} photoWarn={this.state.photoWarning} closeAnswerModal={this.closeAnswerModal} uploadImg={this.handleImage} photos={this.state.photos} answerModalValues={this.answerModalValues} submitAnswer={this.submitAnswer} answerModalQ={this.state.answerModalQ} toggleAnswerModal={this.toggleAnswerModal} showAnswerModal={this.state.showAddAnswerForm} collapseAnswers={this.collapseAnswers} loadMoreAnswers={this.state.loadMoreAnswers} loadMore={this.loadMore} reported={this.state.reported} reportA={this.reportAnswer} incAHelp={this.incrementAHelpfulness} incQHelp={this.incrementQHelpfulness} product={this.state.product} products={this.state.products} questions={this.state.questions}/>
         </div>
         <hr></hr>
         <div onClick={this.props.tracker_RR} id='Review_Section'>
