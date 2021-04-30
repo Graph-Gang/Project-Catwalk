@@ -1,4 +1,5 @@
 import React from 'react';
+//import Submit from './submit.jsx'
 
 
 const AddAnswer = (props) => {
@@ -16,6 +17,9 @@ const AddAnswer = (props) => {
   if(props.photoWarn) {
     moreThanFiveWarning = 'You may only upload five images'
   }
+
+
+
 
   if (props.showAnswerModal){
     return (
