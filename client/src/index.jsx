@@ -31,6 +31,7 @@ class App extends React.Component {
     this.fetchAll = this.fetchAll.bind(this);
     this.fetchOne = this.fetchOne.bind(this);
     this.fetchProductStyle = this.fetchProductStyle.bind(this);
+    this.searchID = this.searchID.bind(this);
     this.fetchQuestions = this.fetchQuestions.bind(this);
     this.fetchReviews = this.fetchReviews.bind(this);
     this.postReview = this.postReview.bind(this);
@@ -91,6 +92,18 @@ class App extends React.Component {
       })
   }
 
+  searchID(id) {
+    this.fetchOne(id);
+    this.fetchProductStyle(id);
+    this.fetchQuestions(id);
+    this.fetchReviews(id);
+    this.fetchRatings(id);
+
+    this.setState({
+      product_id: id
+    })
+  }
+
   //get questions for a specific product
   fetchQuestions(id) {
     axios.get(`/qa/questions/${id}`)
@@ -106,8 +119,11 @@ class App extends React.Component {
     }
 
 
-  fetchReviews(id) {
-    axios.get('/reviews/' + id)
+  fetchReviews(id, sort) {
+    if (!sort) {
+      sort = 'relevant';
+    }
+    axios.get(`/reviews/${id}&${sort}`)
       .then((results) => {
         console.log('Success getting all reviews from API');
         this.setState({
@@ -411,7 +427,7 @@ resetQCount() {
     return(
       <div>
         <div onClick={this.props.tracker_PD}>
-          <ProductDetail product={this.state.product} product_styles={this.state.product_styles}/>
+          <ProductDetail product={this.state.product} product_styles={this.state.product_styles} search={this.searchID}/>
         </div>
         <hr></hr>
         <div onClick={this.props.tracker_QA}>
@@ -419,7 +435,7 @@ resetQCount() {
         </div>
         <hr></hr>
         <div onClick={this.props.tracker_RR} id='Review_Section'>
-          <RatingReview product_id={this.state.product_id} postReview={this.postReview} reviews={this.state.reviews} ratings={this.state.ratings}/>
+          <RatingReview fetch={this.fetchReviews} product_id={this.state.product_id} postReview={this.postReview} reviews={this.state.reviews} ratings={this.state.ratings}/>
         </div>
       </div>
     )

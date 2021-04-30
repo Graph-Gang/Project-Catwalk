@@ -10,6 +10,8 @@ class RatingReview extends React.Component {
     super(props);
     this.state = {
       reviews: this.props.reviews,
+      sort: 'relevant',
+      filter: [],
       photos: [],
       photoWarning: false,
       display: null,
@@ -42,6 +44,9 @@ class RatingReview extends React.Component {
     this.showPhoto = this.showPhoto.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleImage = this.handleImage.bind(this);
+    this.handleSortChange = this.handleSortChange.bind(this);
+    this.handleFilterChange = this.handleFilterChange.bind(this);
+    this.removeFilter = this.removeFilter.bind(this);
   }
 
   handleImage(event) {
@@ -59,12 +64,35 @@ class RatingReview extends React.Component {
   }
 
   handleInputChange(e) {
+    console.log(e.target)
     const target = e.target;
     const name = target.name;
     const value = target.value;
     this.setState({
       [name]: value
     })
+  }
+
+  handleFilterChange(e) {
+    console.log(e)
+    let filter = this.state.filter;
+    filter.push(e);
+    this.setState({
+      filter: filter
+    })
+  }
+
+  removeFilter() {
+    this.setState({
+      filter: []
+    })
+  }
+
+  handleSortChange(e) {
+    this.setState({
+      sort: e.target.value
+    })
+    this.props.fetch(this.props.product_id, e.target.value)
   }
 
   showPhoto(e) {
@@ -153,15 +181,24 @@ class RatingReview extends React.Component {
     return(
       <div>
         <h2>Ratings and Reviews</h2>
+        <form>
+          Sort reviews by
+          <select name="sort" value={this.state.sort} onChange={this.handleSortChange}>
+            <option value="relevant">Relevant</option>
+            <option value="helpful">Helpful</option>
+            <option vaule="newest">newest</option>
+          </select>
+        </form>
         <div className="ratingReviewGrid">
           {
             this.state.ratings ?
-            <Snapshot StarRating={StarRating} ratings={this.state.ratings}/> :
+            <Snapshot onClick={this.handleFilterChange} removeFilter={this.removeFilter} filter={this.state.filter} StarRating={StarRating} ratings={this.state.ratings}/> :
             null
           }
           {
             this.state.display ?
             <List
+            filter={this.state.filter}
             bigPhoto={this.state.bigPhoto}
             bigPhotoUrl={this.state.bigPhotoUrl}
             onClose={this.showPhoto}
