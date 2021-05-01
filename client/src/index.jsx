@@ -56,39 +56,39 @@ class App extends React.Component {
   fetchAll() {
     axios.get('/products')
       .then((results) => {
-        console.log('Success getting all products from API');
+        // console.log('Success getting all products from API');
         this.setState({
           products: results.data
         });
       })
       .catch((err) => {
-        console.log('Error getting all products from API');
+        // console.log('Error getting all products from API');
       })
   }
 
   fetchOne(id) {
     axios.get('/products/' + id)
       .then((results) => {
-        console.log('Success getting one product from API');
+        // console.log('Success getting one product from API');
         this.setState({
           product: results.data
         })
       })
       .catch((err) => {
-        console.log('Error getting one product from API');
+        // console.log('Error getting one product from API');
       })
   }
 
   fetchProductStyle(id) {
     axios.get(`/products/${id}/styles`)
       .then((results) => {
-        console.log('Success getting one product style from API');
+        // console.log('Success getting one product style from API');
         this.setState({
           product_styles: results.data.results
         })
       })
       .catch((err) => {
-        console.log('Error getting one product style from API');
+        // console.log('Error getting one product style from API');
       })
   }
 
