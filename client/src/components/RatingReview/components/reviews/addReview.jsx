@@ -1,9 +1,6 @@
 import React from 'react';
 
 const AddReview = (props) => {
-  // let onClose = (e) => {
-  //   props.onClose && props.onClose();
-  // };
   let photo = [];
 
   if(props.photos) {
@@ -73,9 +70,6 @@ const AddReview = (props) => {
             <button onClick={props.onSubmit} type="button" value="Submit">Submit</button>
             <button onClick={props.onClose}>Close</button>
           </form>
-          {/* <div className="addReviewModalContent">
-            <button onClick={onClose}>submit</button>
-          </div> */}
         </div>
         : null
       }
