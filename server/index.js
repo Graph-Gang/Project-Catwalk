@@ -23,7 +23,6 @@ app.get('/products', function (req, res) {
       res.send(results.data);
     })
     .catch((err) => {
-      console.log(err)
       res.status(404);
       res.send(err);
     })
