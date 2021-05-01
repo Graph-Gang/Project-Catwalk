@@ -7,7 +7,6 @@ const Review = (props) => {
   const formatted = DateTime
   .fromISO(props.review.date)
   .toLocaleString(DateTime.DATETIME_MED)
-// {DateTime.fromIso(props.review.date)}
 
   return(
     <li>

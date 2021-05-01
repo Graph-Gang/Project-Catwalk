@@ -454,7 +454,6 @@ class ClickTracker extends React.Component {
   }
 
   handleClickPD(e) {
-    // console.log(new Date(Date.now()));
     this.state.record[Date.now().toString()] = [e.target, 'Product_Detail']
     this.setState({
       record: this.state.record

@@ -214,12 +214,10 @@ app.get('/reviews/:product_id&:sort', function (req, res) {
 
   axios.get(url, options)
     .then((results) => {
-      // console.log('reviews results --->', results.data);
       res.status(200);
       res.send(results.data);
     })
     .catch((err) => {
-      // console.log('reviews err --->', err);
       res.status(404);
       res.send(err);
     })
@@ -240,12 +238,10 @@ app.get('/reviews/meta/:product_id', function (req, res) {
 
   axios.get(url, options)
     .then((results) => {
-      //console.log('ratings results --->', results.data);
       res.status(200);
       res.send(results.data);
     })
     .catch((err) => {
-      // console.log('ratings err --->', err);
       res.status(404);
       res.send(err);
     })
@@ -253,8 +249,6 @@ app.get('/reviews/meta/:product_id', function (req, res) {
 
 app.post('/reviews/', function (req, res) {
   console.log(req.body);
-  // res.sendStatus(201);
-  // res.end();
 
   axios({
     method: 'post',
